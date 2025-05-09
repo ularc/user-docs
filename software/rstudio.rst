@@ -1,0 +1,57 @@
+Pre-launch
+==========
+
+1. Login to the cluster and download a singularity image from the rocker project 
+   (https://hub.docker.com/r/rocker/rstudio/tags). Pick one with the desired version of R. For example:
+
+   .. code-block:: bash
+
+    # Download image for R 4.2
+    [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:4.2
+    [user@larcc-login1 ~]$ ls
+    rstudio_4.2.sif
+    # Download image for latest R
+    [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:latest
+    [user@larcc-login1 ~]$ ls
+    rstudio_4.2.sif
+    rstudio_4.4.sif
+
+2. Create the following batch script, modifying the ``CHANGE ME!!!`` section and slurm parameter
+   as appropriate
+
+    .. literalinclude:: scripts/rstudio.sbatch
+     :language: bash
+     :linenos:
+
+Launch RStudio Server
+=====================
+
+1. Assume the script from the pre-launch step is located at ``~/rstudio-server.sbatch``. 
+   Then, submit it to slurm with ``sbatch ~/rstudio-server.sbatch``.
+
+2. The script will print to the standard error file 
+   (the one indicated in the ``#SBATCH --error`` option in the sbatch file)
+   the instructions on how to connect to the RStudio web instance. Example output:
+
+   .. code-block:: text
+    
+    1. SSH tunnel from your workstation using the following command:
+
+       ssh -J lk01@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larc-gpu1    
+
+       and point your web browser to http://localhost:8787 
+
+    2. log in to RStudio Server using the following credentials:
+
+       user: lk01
+
+       password: XnUPB9E0OVvjPfNH0nup
+
+
+   .. note::
+    
+    ``48221`` is a randomly picked port (see line 51 of the script) and 
+    the password ``XnUPB9E0OVvjPfNH0nup`` is randomly generated (see line 49 of the script).
+    The ssh command in line 3 of the example output uses the ``-J`` option to use the login node
+    as a proxy and reach the allocated compute node.
+    
