@@ -43,7 +43,7 @@ Launch RStudio Server
     
     1. SSH tunnel from your workstation using the following command:
 
-       ssh -J user@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larcc-cpu1    
+       ssh -N -L 8787:larcc-cpu1:48221 user@larcc.hpc.louisville.edu
 
        and point your web browser to http://localhost:8787 
 
@@ -58,6 +58,6 @@ Launch RStudio Server
     
     ``48221`` is a randomly picked port (see line 51 of the script) and 
     the password ``XnUPB9E0OVvjPfNH0nup`` is randomly generated (see line 49 of the script).
-    The ssh command in line 3 of the example output uses the ``-J`` option to use the login node
+    The ssh command in line 3 of the example output uses the login node
     as a proxy and reach the allocated compute node.
     
