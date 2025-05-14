@@ -158,7 +158,7 @@ to copy files to and from the cluster. See a comprehensive list of options at th
 home directory (``/home/<username>``, or simply ``~``) is shared across all nodes, users are encouraged
 to use their home directories as a staging area for file transfers.
 
-**Example:** Assume user John Doe is assigned cluster account ``jd01``. The code below
+**Example:** Assume user "John Doe" is assigned cluster account ``jd01``. The code below
 shows how John would copy the file ``C:\Users\johndoe\Downloads\workload.jou`` from his
 personal computer to his home directory (``/home/jd01``) in the cluster using the 
 ``scp`` command in Windows PowerShell.
@@ -167,9 +167,9 @@ personal computer to his home directory (``/home/jd01``) in the cluster using th
     
     # John could also use ~ instead of /home/jd01. That is, the following is also valid:
     # scp C:\Users\johndoe\Downloads\workload.jou jd01@larcc.hpc.louisville.edu:~
-    scp C:\Users\johndoe\Downloads\workload.jou jd01@larcc.hpc.louisville.edu:/home/jh01
+    scp C:\Users\johndoe\Downloads\workload.jou jd01@larcc.hpc.louisville.edu:/home/jd01
 
-Suppose Jhon Doe ran a simulation and got the results stored at ``/home/jd01/results/sim_1_res.dat``
+Suppose John Doe ran a simulation and got the results stored at ``/home/jd01/results/sim_1_res.dat``
 in the cluster. If he wants to copy these retults to the folder ``C:\Users\johndoe\Documents`` 
 of his Windows PC, he would execute the command below from a PowerShell session:
 
