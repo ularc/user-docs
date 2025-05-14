@@ -158,26 +158,26 @@ to copy files to and from the cluster. See a comprehensive list of options at th
 home directory (``/home/<username>``, or simply ``~``) is shared across all nodes, users are encouraged
 to use their home directories as a staging area for file transfers.
 
-**Example:** Assume user Jhon Doe is assigned cluster account ``jh01``. The code below
-shows how Jhon would copy the file ``C:\Users\jhondoe\Downloads\workload.jou`` from his
-personal computer to his home directory (``/home/jh01``) in the cluster using the 
+**Example:** Assume user John Doe is assigned cluster account ``jd01``. The code below
+shows how John would copy the file ``C:\Users\johndoe\Downloads\workload.jou`` from his
+personal computer to his home directory (``/home/jd01``) in the cluster using the 
 ``scp`` command in Windows PowerShell.
 
 ..  code-block:: powershell
     
-    # Jhon could also use ~ instead of /home/jh01. That is, the following is also valid:
-    # scp C:\Users\jhondoe\Downloads\workload.jou jh01@larcc.hpc.louisville.edu:~
-    scp C:\Users\jhondoe\Downloads\workload.jou jh01@larcc.hpc.louisville.edu:/home/jh01
+    # John could also use ~ instead of /home/jd01. That is, the following is also valid:
+    # scp C:\Users\johndoe\Downloads\workload.jou jd01@larcc.hpc.louisville.edu:~
+    scp C:\Users\johndoe\Downloads\workload.jou jd01@larcc.hpc.louisville.edu:/home/jh01
 
-Suppose Jhon Doe ran a simulation and got the results stored at ``/home/jh01/results/sim_1_res.dat``
-in the cluster. If he wants to copy these retults to the folder ``C:\Users\jhondoe\Documents`` 
+Suppose Jhon Doe ran a simulation and got the results stored at ``/home/jd01/results/sim_1_res.dat``
+in the cluster. If he wants to copy these retults to the folder ``C:\Users\johndoe\Documents`` 
 of his Windows PC, he would execute the command below from a PowerShell session:
 
 ..  code-block:: powershell
     
     # The following is also valid:
-    # scp jh01@larcc.hpc.louisville.edu:~/results/sim_1_res.dat C:\Users\jhondoe\Documents
-    scp jh01@larcc.hpc.louisville.edu:/home/jh01/results/sim_1_res.dat C:\Users\jhondoe\Documents
+    # scp jd01@larcc.hpc.louisville.edu:~/results/sim_1_res.dat C:\Users\johndoe\Documents
+    scp jd01@larcc.hpc.louisville.edu:/home/jd01/results/sim_1_res.dat C:\Users\johndoe\Documents
 
 Using MobaXterm
 ^^^^^^^^^^^^^^^
