@@ -36,7 +36,7 @@ Launch RStudio Server
     
     1. SSH tunnel from your workstation using the following command:
 
-       ssh -J user@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larc-gpu1    
+       ssh -J user@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larcc-cpu1    
 
        and point your web browser to http://localhost:8787 
 
