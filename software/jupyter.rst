@@ -7,7 +7,7 @@ Launching a notebook
 
     .. code-block:: bash
 
-        module load miniforge
+        module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
         conda create -n jupyter python numpy pandas notebook
 
 2. Login into the cluster and start an interactive job. For example,
