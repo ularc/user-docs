@@ -6,10 +6,10 @@ Pre-launch
 
    .. code-block:: bash
 
-    # Download image for R 4.2
+    # Download image for R 4.5
     [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:4.2
     [user@larcc-login1 ~]$ ls
-    rstudio_4.2.sif
+    rstudio_4.5.sif
     # Download image for latest R
     [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:latest
     [user@larcc-login1 ~]$ ls

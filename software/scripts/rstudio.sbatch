@@ -10,7 +10,7 @@ module load apptainer/1.3.4-gcc-11.5.0
 
 ## CHANGE ME!!! #############################################
 # You can set this to a specific R version if you would like
-# For example, VERSION_OF_R=4.2
+# For example, VERSION_OF_R=4.5
 VERSION_OF_R=latest
 # Folder where the apptainer/singularity instances are saved
 FOLDER_CONTAINER_INSTANCES=$HOME
