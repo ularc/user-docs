@@ -13,8 +13,7 @@ Pre-launch
     # Download image for latest R
     [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:latest
     [user@larcc-login1 ~]$ ls
-    rstudio_4.2.sif
-    rstudio_4.4.sif
+    rstudio_latest.sif
 
 2. Create the following batch script, modifying the ``CHANGE ME!!!`` section and slurm parameter
    as appropriate
@@ -37,13 +36,13 @@ Launch RStudio Server
     
     1. SSH tunnel from your workstation using the following command:
 
-       ssh -J lk01@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larc-gpu1    
+       ssh -J user@larcc.hpc.louisville.edu -N -L 8787:localhost:48221 user@larc-gpu1    
 
        and point your web browser to http://localhost:8787 
 
     2. log in to RStudio Server using the following credentials:
 
-       user: lk01
+       user: user
 
        password: XnUPB9E0OVvjPfNH0nup
 
