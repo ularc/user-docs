@@ -326,7 +326,7 @@ unload all modules, users should use the command ``module purge``. Example:
 Queues and jobs
 ===============
 
-- The cluster has two queues named *longjobs* and *gpgpu*.
+- The cluster has two queues named *compute* and *gpu*.
 - To **see information about queues**, users can use the ``sinfo`` command.
 - When users send jobs, they can monitor their job status using the ``squeue`` command.
 - To **launch an interactive job**, users can user the
@@ -340,7 +340,6 @@ Queues and jobs
 Limits
 ======
 
-- Users cannot request more than 5 nodes on a single job.
-- A job can only request a maximum of 20 cores per node and 120GB of memory.
-- The maximum allowed walltime for jobs on all queues is 1 day and 12h. Contact ITS - Research Computing if more
+- Users cannot request more than 3 nodes on a single job.
+- The maximum allowed walltime for jobs on all queues is 14 days and 12h. Contact ITS - Research Computing if more
   time is required for a job.
