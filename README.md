@@ -5,7 +5,7 @@
     ```bash
     python -m venv larcc-docs-env
     source larcc-docs-env/bin/activate
-    pip install sphinx sphinx-rtd-theme
+    pip install sphinx sphinx-rtd-theme sphinx-tabs
     ```
 
 2. Build the documentation. This will create the folder `_build` inside
