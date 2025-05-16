@@ -19,7 +19,7 @@ Launching Jupyter through a batch job
 =====================================
 
 For the convenience of users, the cluster already comes with
-pre-defined python virtual environments where
+pre-defined conda environments where
 jupyter is installed: ``pytorch``, ``tensorflow``.
 Users can use  any of these environments or create their own.
 
@@ -29,19 +29,41 @@ Users can use  any of these environments or create their own.
 Login into the cluster and create a jupyter environment, plus any
 additional packages you need as follows:
 
-    .. code-block:: bash
+.. tabs::
 
-        module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
-        conda create -n jupyter python numpy pandas notebook
+    .. group-tab:: conda
+    
+        .. code-block:: bash
+
+            module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
+            conda create -n jupyter_env python numpy pandas notebook
+    
+    .. group-tab:: venv
+
+        .. code-block:: bash
+
+            python -m venv jupyter_env
+            source jupyter_env/bin/activate
+            pip3 install jupyter numpy pandas notebook
 
 2. Create the submission script
 -------------------------------
 
 Login to the cluster and create the following sbatch script:
 
-.. literalinclude:: scripts/jupyter.sbatch
- :language: bash
- :linenos:
+.. tabs::
+
+    .. group-tab:: conda
+
+        .. literalinclude:: scripts/jupyter_conda.sbatch
+         :language: bash
+         :linenos:
+
+    .. group-tab:: venv
+
+        .. literalinclude:: scripts/jupyter_venv.sbatch
+         :language: bash
+         :linenos:
 
 3. Connect to jupyter from your web browser
 -------------------------------------------
@@ -65,11 +87,9 @@ the instructions on how to connect to the jupyer web instance. Example output:
         scancel -f 177
     
 .. note::
-    
-    ``10178`` is a randomly picked port (see line 13 of the script) and 
-    the password ``Oc/ieDDJ0yulxiRP96Wt`` is randomly generated (see line 15 of the script).
-    The ssh command in numeral 1 of the example output uses the login node
-    as a proxy to reach the allocated compute node.
+    ``10178`` is a randomly picked port and 
+    the password ``Oc/ieDDJ0yulxiRP96Wt`` is randomly generated. This means users will be
+    provided a new port and password upon a new job submission.
 
 Launching Jupyter through an interactive job
 ============================================
