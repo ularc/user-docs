@@ -10,9 +10,9 @@
     and more efficient to run Python scripts directly using the Python interpreter,
     especially for heavier tasks.
 
-There are multiple ways to launch jupyer in the cluster. All of them require the user
+There are multiple ways to launch jupyer in the cluster. At the moment, all of them require users
 to have basic familiarity with conda environments or, alternatively, the
-python
+python ``venv`` module (See `Python's venv documentation <https://docs.python.org/3/library/venv.html>`_).
 
 
 Launching Jupyter through a batch job
