@@ -7,7 +7,9 @@
 #SBATCH --error=/home/%u/jupyter.%j.err
 
 module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
-conda activate pytorch
+
+# CHANGE THIS TO THE CONDA ENVIRONMENT YOU SEE FIT
+conda activate jupyter
 
 # This line prints a random, available port for jupyter to use
 PORT=`comm -23 <(seq 1024 65535 | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf | head -n 1`

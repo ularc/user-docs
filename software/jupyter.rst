@@ -18,7 +18,23 @@ python
 Launching Jupyter through a batch job
 =====================================
 
-1. Create the submission script
+For the convenience of users, the cluster already comes with
+pre-defined python virtual environments where
+jupyter is installed: ``pytorch``, ``tensorflow``.
+Users can use  any of these environments or create their own.
+
+1. (Optional) Create a jupyter environment
+------------------------------------------
+
+Login into the cluster and create a jupyter environment, plus any
+additional packages you need as follows:
+
+    .. code-block:: bash
+
+        module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
+        conda create -n jupyter python numpy pandas notebook
+
+2. Create the submission script
 -------------------------------
 
 Login to the cluster and create the following sbatch script:
@@ -27,7 +43,7 @@ Login to the cluster and create the following sbatch script:
  :language: bash
  :linenos:
 
-2. Connect to jupyter from your web browser
+3. Connect to jupyter from your web browser
 -------------------------------------------
 
 The script will print to the standard error file 
@@ -93,7 +109,7 @@ Then, start a jupyter server as follows:
 .. code-block:: bash
 
     module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
-    # CHANGE THIS THE ENVIRONMENT NAME YOU SEE FIT
+    # CHANGE THIS TO THE CONDA ENVIRONMENT YOU SEE FIT
     conda activate jupyter
     PORT=`comm -23 <(seq 1024 65535 | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf | head -n 1`
     PASS=`openssl rand -base64 15`
