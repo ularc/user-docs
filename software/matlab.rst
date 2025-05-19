@@ -68,13 +68,13 @@ Users must follow these steps only ONCE (i.e. do it one time and never do it aga
 
     .. code-block:: bash
 
-        user@larcc-login1:~$ module load matlab/r2023b
+        user@larcc-login1:~$ module load matlab/r2025a
         user@larcc-login1:~$ matlab -nodisplay  -nosplash -nodesktop
         
                                                         < M A T L A B (R) >
-                                              Copyright 1984-2023 The MathWorks, Inc.
-                                         R2023b Update 3 (23.2.0.2409890) 64-bit (glnxa64)
-                                                          October 4, 2023
+                                              Copyright 1984-2024 The MathWorks, Inc.
+                                         R2025a (25.1.0.2943329) 64-bit (glnxa64)
+                                                          April 16, 2025
 
 
         To get started, type doc.
@@ -146,7 +146,7 @@ Submit jobs through a batch script
         #SBATCH -n 20
         #SBATCH -t 20:00
 
-        module load matlab/r2023b
+        module load matlab/r2025a
         matlab -nosplash -nodesktop < /home/user/test.m
 
 #. Use the ``sbatch`` command to schedule the job. Following the example from previous steps:
@@ -179,9 +179,9 @@ Submit jobs through MATLAB's command prompt
         user@larcc-login1:~$ matlab -nodisplay  -nosplash -nodesktop
         
                                                         < M A T L A B (R) >
-                                              Copyright 1984-2023 The MathWorks, Inc.
-                                         R2023b Update 3 (23.2.0.2409890) 64-bit (glnxa64)
-                                                          October 4, 2023
+                                              Copyright 1984-2024 The MathWorks, Inc.
+                                         R2025a (25.1.0.2943329) 64-bit (glnxa64)
+                                                          April 16, 2025
 
 
         To get started, type doc.
@@ -264,7 +264,7 @@ Submit jobs through a batch script and a MATLAB submission script
         #SBATCH -n 20
         #SBATCH -t 20:00
 
-        module load matlab/r2023b
+        module load matlab/r2025a
         matlab -nodisplay -nosplash -nodesktop -r "matlabSubmissionScript"
 
 #. Use the ``sbatch`` command to schedule the job. Following the example from previous steps: ``sbatch /home/user/matlab_test.sh``
