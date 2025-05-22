@@ -64,40 +64,31 @@ BEFORE submitting any parallel/distributed job
 Users must follow these steps only ONCE (i.e. do it one time and never do it again).
 
 #. Log into the cluster.
-#. Execute the ``matlab`` binary in the head node. For example,
-
+#. Load the matlab module you would like to use. For example, ``module load matlab/r2025a-gcc-11.5.0-cj4bjqf``.
+#. Create a cluster profile by running the following command:
+    
     .. code-block:: bash
 
-        user@larcc-login1:~$ module load matlab/r2025a
-        user@larcc-login1:~$ matlab -nodisplay  -nosplash -nodesktop
-        
-                                                        < M A T L A B (R) >
-                                              Copyright 1984-2024 The MathWorks, Inc.
-                                         R2025a (25.1.0.2943329) 64-bit (glnxa64)
-                                                          April 16, 2025
+        (
+        cat << EOF
+        profileName = 'larcc-cluster';
+        profiles = parallel.listProfiles;
+        if ~any(strcmp(profileName, profiles))
+            c = parallel.cluster.Generic( ...
+                  'JobStorageLocation', '~/.matlab/local_cluster_jobs/r2025a', ...
+                  'NumWorkers', 60, ...
+                  'ClusterMatlabRoot', '/opt/shared/apps/manual/matlab/r2025a', ...
+                  'OperatingSystem', 'unix', ...
+                  'HasSharedFilesystem', true, ...
+                  'PluginScriptsLocation', '/opt/shared/apps/manual/matlab/r2025a/toolbox/local/cluster.local/matlab-parallel-slurm-plugin-2.1.1');
+            saveAsProfile(c, profileName);
+        end
+        EOF
+        ) | matlab -nodisplay -nosplash -nodesktop
 
-
-        To get started, type doc.
-        For product information, visit www.mathworks.com.
-
-        >>
-
-#. Create the following cluster profile:
-
-    .. code-block:: matlabsession
-
-        >> cluster = parallel.cluster.Generic( ...
-        >> 'JobStorageLocation', '~/.matlab/local_cluster_jobs/R2025a', ...
-        >> 'NumWorkers', 60, ...
-        >> 'ClusterMatlabRoot', '/apps/matlab/r2025a', ...
-        >> 'OperatingSystem', 'unix', ...
-        >> 'HasSharedFilesystem', true, ...
-        >> 'PluginScriptsLocation', '/apps/matlab/r2025a/toolbox/local/cluster.local/matlab-parallel-slurm-plugin-2.1.1');
-        >> saveAsProfile(cluster, 'larcc-local');
-
-#. Validate that the cluster profile was saved. To do this, exit from MATLAB's command prompt using ``exit()``, execute matlab again as in step 1 and load the profile by using ``parcluster('larcc-local');``. If no error is printed, then the profile was successfully loaded and users can proceed to the next step.
-
-#. Set the newly created cluster profile as the default profile by executing in the MATLAB prompt: ``parallel.defaultProfile('larcc-local');``
+#. Validate that the cluster profile was saved. To do this,
+   execute matlab again as follows: ``matlab -nodisplay -nosplash -nodesktop -batch "disp(parallel.listProfiles)"``.
+   The output should list the cluster profile ``larcc-cluster``.
 
 .. _matlab-batch-job:
 
