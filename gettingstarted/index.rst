@@ -115,36 +115,24 @@ Using MobaXterm
 
 1. Click on "Session" at the top-left of the window
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-   .. image:: images/mobaxterm_conn_setup_1.png
-     :width: 800
+  .. image:: images/mobaxterm_conn_setup_1.png
+    :width: 800
 
 2. Setup your username and the cluster hostname ``larcc.hpc.louisville.edu``
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-   .. image:: images/mobaxterm_conn_setup_2.png
-     :width: 800
+  .. image:: images/mobaxterm_conn_setup_2.png
+    :width: 800
 
 3. A notice like the one below will appear the first time you connect to the cluster.
    Click "Accept".
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-   .. image:: images/mobaxterm_conn_setup_3.png
-     :width: 800
+  .. image:: images/mobaxterm_conn_setup_3.png
+    :width: 800
 
 4. Write your password (it will not be displayed as you type it) and hit Enter
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-   .. image:: images/mobaxterm_conn_setup_4.png
-     :width: 800
+  .. image:: images/mobaxterm_conn_setup_4.png
+    :width: 800
 
 Copying files to/from the cluster
 =================================
