@@ -123,7 +123,8 @@ Here is an example, but users should change the parameters as they see fit
 --------------------------
 
 When you land on the assigned compute node, take note of the hostname of the server assigned 
-to your job as you will need it for the following steps (you can use the ``hostname`` command).
+to your job as you will need it for the following steps 
+(you can use the ``hostname | sed 's/larcc-/larcc-hs-/'`` command).
 Then, start a jupyter server as follows:
 
 .. code-block:: bash
