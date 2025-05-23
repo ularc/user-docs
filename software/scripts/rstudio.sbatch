@@ -58,7 +58,7 @@ readonly PORT=$(python3 -c 'import socket; s=socket.socket(); s.bind(("", 0)); p
 cat 1>&2 <<END
 1. SSH tunnel from your workstation using the following command:
 
-   ssh -N -L 8787:${HOSTNAME}:${PORT} ${APPTAINERENV_USER}@larcc.hpc.louisville.edu
+   ssh -N -L 8787:`hostname | sed 's/larcc-/larcc-hs-/'`:${PORT} ${APPTAINERENV_USER}@larcc.hpc.louisville.edu
 
    and point your web browser to http://localhost:8787
 
