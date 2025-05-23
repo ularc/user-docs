@@ -17,7 +17,7 @@ HASHED_PASS=`python -c "from jupyter_server.auth import passwd; print(passwd('$P
 cat 1>&2 <<END
 1. SSH tunnel from your workstation using the following command:
 
-   ssh -N -L ${PORT}:${HOSTNAME}:${PORT} ${SLURM_JOB_USER}@larcc.hpc.louisville.edu
+   ssh -N -L ${PORT}:`hostname | sed 's/larcc-/larcc-hs-/'`:${PORT} ${SLURM_JOB_USER}@larcc.hpc.louisville.edu
 
    and point your web browser to http://localhost:${PORT}
 

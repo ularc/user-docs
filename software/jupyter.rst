@@ -76,7 +76,7 @@ the instructions on how to connect to the jupyer web instance. Example output:
 
     1. SSH tunnel from your workstation using the following command:
 
-        ssh -N -L 10178:larcc-gpu1:10178 user@larcc.hpc.louisville.edu
+        ssh -N -L 10178:larcc-hs-gpu1:10178 user@larcc.hpc.louisville.edu
 
         and point your web browser to http://localhost:10178
 
@@ -134,7 +134,8 @@ Then, start a jupyter server as follows:
     PORT=`comm -23 <(seq 1024 65535 | sort) <(ss -Htan | awk '{print $4}' | cut -d':' -f2 | sort -u) | shuf | head -n 1`
     PASS=`openssl rand -base64 15`
     HASHED_PASS=`python -c "from jupyter_server.auth import passwd; print(passwd('$PASS'))"`
-    echo "THIS IS YOUR PASSWORD=${PASS}"
+    echo "THIS IS YOUR PASSWORD: ${PASS}"
+    echo "THIS IS THE PORT JUPYTER IS RUNNING ON: ${PORT}"
     jupyter notebook --no-browser --port=$PORT \
         --ServerApp.ip=0.0.0.0 \
         --PasswordIdentityProvider.hashed_password="$HASHED_PASS"
@@ -147,7 +148,7 @@ Then, start a jupyter server as follows:
     ssh -N -L ${PORT}:${HOSTNAME}:${PORT} ${SLURM_JOB_USER}@larcc.hpc.louisville.edu
 
 For example, assume you landed on the server ``larcc-gpu1`` on step 2 and jupyter is using port 7070,
-then you would run: ``ssh -N -L 7070:larcc-gpu1:7070 username@larcc.hpc.louisville.edu``.
+then you would run: ``ssh -N -L 7070:larcc-hs-gpu1:7070 username@larcc.hpc.louisville.edu``.
 
 Access jupyter through **your (personal) workstation's web browser** by entering in the navigation bar:
 ``localhost:<port>``. Following the example from step 4, you would use ``localhost:7070``. Then, enter
