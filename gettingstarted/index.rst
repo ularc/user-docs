@@ -192,24 +192,22 @@ Use command ``module avail`` as shown in the example below:
 ..  code-block:: bash
   :caption: Example list of available software
     
-    user@larcc-login1:~$ module avail
+    [user@larcc-login1 ~]$ module av
 
-    ------------------------------- /apps/modulefiles/Linux ---------------------------
-       ansys/2023r1                                         mkl/2023.0.0
-       boost/1.81_gcc12.2_ompi4.1.5_python3.11.2            mpc/1.3.1
-       cloog/0.20.0                                         mpfr/4.2.0
-       cmake/3.26.1                                         openblas/0.3.21_gcc12.2
-       fftw/3.3.10_ompi4.1.5_gcc12.2                        openfoam/2212
-       gcc/12.2                                             openmpi/4.1.5_gcc12.2   (D)
-       gmp/6.2.1                                            openmpi/4.1.5
-       gromacs/2023_ompi4.1.5_gcc12.2                (S)    openssl/3.0.8_gcc12.2
-       icu/72.1_gcc12.2                                     python/3.11.2_gcc12.2
-       infiniband                                           ucx/1.14.0_gcc12.2
-       lammps/23Jun2022_fftw3.3.10_ompi4.1.5_gcc12.2        zlib/1.2.13
-       miniconda3/23.1.0
+    ------------------------- /opt/shared/modulefiles/auto/linux-rocky9-x86_64/Core --------------------------
+       apptainer/1.3.4-gcc-11.5.0-as2nnsb                        miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
+       cuda/12.8.1-gcc-11.5.0-xfem4z6                            mvapich/3.0-gcc-11.5.0-lkmtzx7
+       hpl/2.3-oneapi-2025.0.0-intel-oneapi-mpi-e4nh4jf          nvhpc/25.3-gcc-11.5.0-mbzjfew
+       intel-oneapi-compilers/2025.0.0-gcc-11.5.0-q7zplj3        openmpi/5.0.5-gcc-11.5.0-5zz5ozl
+       intel-oneapi-mkl/2025.0.0-oneapi-2025.0.0-azdrlfn         openmpi/5.0.5-oneapi-2025.0.0-ibqgcsp  (D)
+       intel-oneapi-mpi/2021.14.0-oneapi-2025.0.0-qyvyj3p        python/3.12.10-oneapi-2025.0.0-zz5mjcp
+       matlab/r2024b-gcc-11.5.0-3dizvwe                          r/4.4.1-gcc-11.5.0-56jqenf
+       matlab/r2025a-gcc-11.5.0-cj4bjqf                   (D)
+
+    --------------------------------- /usr/share/lmod/lmod/modulefiles/Core ----------------------------------
+       lmod    settarg
 
       Where:
-       S:  Module is Sticky, requires --force to unload or purge
        D:  Default Module
 
 Load software
@@ -217,20 +215,20 @@ Load software
 
 Users **must** load programs with the ``module load <modulename>`` before launching them.
 Multiple programs can be loaded at the same time, but there are cases where two or more may conflict.
-For instance, programs ``openmpi/4.1.5_gcc12.2`` and ``openmpi/4.1.5`` cannot be loaded together.
+For instance, programs ``openmpi/5.0.5-gcc-11.5.0-5zz5ozl`` and ``openmpi/5.0.5-oneapi-2025.0.0-ibqgcsp``
+cannot be loaded together.
 For such cases the program loaded last is used. An example of this is shown below:
 
 ..  code-block:: bash
   :caption: Example of conflicting programs
 
-    user@larcc-login1:~$ module load openmpi/4.1.5_gcc12.2
-    user@larcc-login1:~$ module load openmpi/4.1.5
-
-    Lmod is automatically replacing "gcc/12.2" with "openmpi/4.1.5".
-
+    [user@larcc-login1 ~]$ module load openmpi/5.0.5-gcc-11.5.0-5zz5ozl
+    [user@larcc-login1 ~]$ module load openmpi/5.0.5-oneapi-2025.0.0-ibqgcsp
 
     The following have been reloaded with a version change:
-      1) openmpi/4.1.5_gcc12.2 => openmpi/4.1.5
+      1) openmpi/5.0.5-gcc-11.5.0-5zz5ozl => openmpi/5.0.5-oneapi-2025.0.0-ibqgcsp
+
+    [user@larcc-login1 ~]$
 
 .. warning::
     Programs **MUST** only be run through slurm, **NOT** on the login node (larcc-login1).
@@ -245,16 +243,31 @@ Use command ``module list`` as shown in the example below:
 ..  code-block:: bash
   :caption: Example list of currently loaded software
 
-    user@larcc-login1:~$ module load python/3.11.2_gcc12.2
-    user@larcc-login1:~$ module list
+    [user@larcc-login1 ~]$ module load openmpi/5.0.5-gcc-11.5.0-5zz5ozl
+    [user@larcc-login1 ~]$ module list
 
     Currently Loaded Modules:
-      1) zlib/1.2.13   4) mpc/1.3.1      7) openssl/3.0.8_gcc12.2
-      2) gmp/6.2.1     5) cloog/0.20.0   8) python/3.11.2_gcc12.2
-      3) mpfr/4.2.0    6) gcc/12.2
+      1) glibc/2.34-gcc-11.5.0-4dat34u         (H)  10) openssl/3.2.2-gcc-11.5.0-czvghva    (H)
+      2) gcc-runtime/11.5.0-gcc-11.5.0-svvevyo (H)  11) libevent/2.1.12-gcc-11.5.0-cufjpkl  (H)
+      3) libpciaccess/0.17-gcc-11.5.0-jgqvvje  (H)  12) libfabric/1.22.0-gcc-11.5.0-5axk6y7 (H)
+      4) libiconv/1.17-gcc-11.5.0-vmtcdle      (H)  13) numactl/2.0.18-gcc-11.5.0-zmb5tw7   (H)
+      5) xz/5.4.6-gcc-11.5.0-7mfzihn           (H)  14) openssh/8.7p1-gcc-11.5.0-rryqbxc    (H)
+      6) zlib-ng/2.2.1-gcc-11.5.0-44cipbd      (H)  15) pmix/5.0.3-gcc-11.5.0-zdm7pmx       (H)
+      7) libxml2/2.13.4-gcc-11.5.0-olld6vt     (H)  16) slurm/24.11.4-gcc-11.5.0-tevb6bm    (H)
+      8) ncurses/6.5-gcc-11.5.0-stitjip        (H)  17) ucx/1.17.0-gcc-11.5.0-l3qrneo       (H)
+      9) hwloc/2.11.1-gcc-11.5.0-a6whu6s       (H)  18) openmpi/5.0.5-gcc-11.5.0-5zz5ozl
 
-Note that besides ``python/3.11.2_gcc12.2`` there are other programs loaded.
-These other programs are dependencies that are automatically loaded.
+      Where:
+       H:  Hidden Module
+
+.. note::
+
+   In addition to ``openmpi/5.0.5-gcc-11.5.0-5zz5ozl``, several other programs are listed.
+   These are dependencies that the module automatically loads alongside OpenMPI.
+
+   Dependencies marked with an *H* are **hidden by default**. 
+   This means they will not appear when you run the ``module available`` command,
+   even though they are still loaded and available for use.
 
 Unloading software
 ^^^^^^^^^^^^^^^^^^
@@ -266,20 +279,29 @@ unload all modules, users should use the command ``module purge``. Example:
 ..  code-block:: bash
   :caption: Example on how to unload software
 
-    user@larcc-login1:~$ module load python/3.11.2_gcc12.2
-    user@larcc-login1:~$ module unload python/3.11.2_gcc12.2
-    user@larcc-login1:~$ module list
+    [user@larcc-login1 ~]$ module load openmpi/5.0.5-gcc-11.5.0-5zz5ozl
+    [user@larcc-login1 ~]$ module list
 
     Currently Loaded Modules:
-      1) zlib/1.2.13   4) mpc/1.3.1      7) openssl/3.0.8_gcc12.2
-      2) gmp/6.2.1     5) cloog/0.20.0
-      3) mpfr/4.2.0    6) gcc/12.2
+      1) glibc/2.34-gcc-11.5.0-4dat34u         (H)  10) openssl/3.2.2-gcc-11.5.0-czvghva    (H)
+      2) gcc-runtime/11.5.0-gcc-11.5.0-svvevyo (H)  11) libevent/2.1.12-gcc-11.5.0-cufjpkl  (H)
+      3) libpciaccess/0.17-gcc-11.5.0-jgqvvje  (H)  12) libfabric/1.22.0-gcc-11.5.0-5axk6y7 (H)
+      4) libiconv/1.17-gcc-11.5.0-vmtcdle      (H)  13) numactl/2.0.18-gcc-11.5.0-zmb5tw7   (H)
+      5) xz/5.4.6-gcc-11.5.0-7mfzihn           (H)  14) openssh/8.7p1-gcc-11.5.0-rryqbxc    (H)
+      6) zlib-ng/2.2.1-gcc-11.5.0-44cipbd      (H)  15) pmix/5.0.3-gcc-11.5.0-zdm7pmx       (H)
+      7) libxml2/2.13.4-gcc-11.5.0-olld6vt     (H)  16) slurm/24.11.4-gcc-11.5.0-tevb6bm    (H)
+      8) ncurses/6.5-gcc-11.5.0-stitjip        (H)  17) ucx/1.17.0-gcc-11.5.0-l3qrneo       (H)
+      9) hwloc/2.11.1-gcc-11.5.0-a6whu6s       (H)  18) openmpi/5.0.5-gcc-11.5.0-5zz5ozl
+
+      Where:
+       H:  Hidden Module
 
 
 
-    user@larcc-login1:~$ module purge
-    user@larcc-login1:~$ module list
+    [user@larcc-login1 ~]$ module purge
+    [user@larcc-login1 ~]$ module list
     No modules loaded
+    [user@larcc-login1 ~]$
 
 Queues and jobs
 ===============
