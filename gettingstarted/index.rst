@@ -87,21 +87,15 @@ The basic login process remains consistent across all of these platforms:
    For instance, if the user's name is "lk01", they would input
    ``ssh lk01@larcc.hpc.louisville.edu``.
    
-   .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/login_example.png
-      :width: 600
-      :alt: Example: cluster login
+  .. image:: images/login_example.png
+    :width: 600
+    :alt: Example: cluster login
 
 3. Provide your password and press Enter.
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/login_example_2.png
-      :width: 600
-      :alt: Example: logged into the cluster
+  .. image:: images/login_example_2.png
+    :width: 600
+    :alt: Example: logged into the cluster
 
 Alternatively, users can opt for other popular SSH clients installed on their personal computers,
 such as `MobaXterm <https://mobaxterm.mobatek.net/>`_ and `PuTTY <https://www.putty.org/>`_.
@@ -175,20 +169,8 @@ Downloading files or folders from the cluster
 
 1. Locate the "File Explorer" from MobaXterm and navigate towards the location where the file
    or folder you want to download resides in.
-  
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/mobaxterm_file_copy_1.png
-      :width: 800
 
 2. Right click on the file or folder you want to download from the cluster and click on "Download".
-
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/mobaxterm_file_copy_2.png
-      :width: 800
 
 Uploading files or folders to the cluster
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -196,20 +178,8 @@ Uploading files or folders to the cluster
 1. Locate the "File Explorer" from MobaXterm and navigate towards the location where 
    you want to upload your files to.
 
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/mobaxterm_file_copy_1.png
-      :width: 800
-
 2. Click on the upload icon within the "File Explorer" and select the file or folder you want to
    upload.
-
-  .. code-block:: RST
-    :caption: TODO: Create new image
-
-    .. image:: images/mobaxterm_file_copy_3.png
-      :width: 800
 
 Using software installed in the cluster
 =======================================
