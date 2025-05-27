@@ -45,6 +45,11 @@ To request an HPC account:
 Accounts for non-UofL but affiliated individuals
 ================================================
 
+.. warning::
+  This type of ULINK account requires additional steps to be eligible for a HPC account.
+  Once you have finished the process described below and are granted a Sponsored-ULINK
+  account, you must contact Research Computing (ithpc@louisville.edu) directly to address your case.
+
 You must obtain a ULINK account before proceeding with your HPC account request. 
 For additional details and access to the request form, 
 refer to the
