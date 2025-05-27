@@ -1,7 +1,10 @@
 .. _conda:
 
-The Conda installer
-===================
+Basics
+======
+
+About Anaconda, Miniconda and Miniforge
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 The Conda installer is a package manager and environment manager for
 Python, R, and other languages. It comes in 3 flavors:
@@ -19,8 +22,155 @@ open-source and customizable environments. Compared to the other 2, it:
 - does not rely on the default Anaconda channel, which can sometimes have licensing issues.
 - uses conda-forge as its default channel—a large, community-maintained repository of conda packages.
 
+What is a Conda environment?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+A Conda environment is a self-contained directory that includes:
+
+- A specific version of Python or R
+- Specific versions of packages (like NumPy, TensorFlow, etc.)
+- Any other dependencies
+
+Each environment is isolated from others, which means packages in one environment
+don't interfere with packages in another.
+
+
+Why use multiple Conda environments?
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+- **Avoid Conflicts Between Packages**. Different projects may need different package
+  versions. Maintaining 1 or multiple environments per project can help in
+  prototyping and or maintining different versions of your code. For example,
+  Assume "Project A" requires TensorFlow 2.15 and "Project B" requires TensorFlow 1.14. 
+  If you installed both in the same environment, they would conflict. With Conda, you can do:
+
+   .. code-block:: bash
+
+    conda create --name ProjectA python=3.10 tensorflow=2.15
+    conda create --name ProjectB python=3.7 tensorflow=1.14
+
+- **Safe code prototyping and experimenting with new package versions**. If you want to make sure
+  your code works on the latest version of a package or you want to try a new exciting feature
+  of the latest version of a package, you can create a new environment before updating.
+
+- **Reproducibility**. Environments can be exported and shared 
+  to others with ``conda env export > environment.yml`` and later imported by another party
+  (or another machine) with ``conda env create -f environment.yml``. For example,
+  you could build an environment
+  in your local workstation, then export it and rebuild it on the login node of the cluster.
+
 Using Conda
 ===========
+
+Loading the miniforge3 module and the base environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+After logging into LARCC, you can start using Miniforge by loading the miniforge3 module with the command:
+
+.. code-block:: bash
+
+    module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym 
+
+After executing this command, you should see your prompt change (it should now start with ``(base)``).
+
+Creating and activating an environment
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Although you can install packages right after loading the miniforge3 module, which
+activates the base Miniforge environment for you, it is best to create and use named environments instead.
+These are isolated, easier to manage, and allow multiple setups under one base environment.
+
+Miniforge supports both ``conda`` and ``mamba`` for managing environments.
+While both work the same way, ``mamba``—written in C++—is faster and more memory-efficient than ``conda``.
+We recommend using ``mamba`` for installing packages. However, if you have not run ``mamba init``,
+you will need to use ``conda`` to activate or deactivate environments.
+For non-installation tasks like listing environments, both tools can be used interchangeably.
+
+For example, to create an environment named ``my_env``:
+
+#. Load the miniforge3 module by typing: ``module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym``.
+#. Create the environment with ``mamba create --name my_env`` or ``conda create --name my_env``.
+
+Once you have created your environment, you can use it by executing ``conda activate environment_name_here``.
+For example, ``conda activate my_env``. The command prompt will then change from ``(base)`` to ``(my_env)``
+to reflect this.
+
+By default, your environments are stored at ``/home/user/.conda/envs/env_name``.
+If you want to indicate a different prefix, you can use the ``--prefix`` option instead of the
+``--name`` option. For example:
+
+.. code-block:: bash
+
+    conda create --prefix /home/user/ProjectA/my_env
+
+Installing packages with conda and mamba
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+Once you have activated an environment, you can install packages with the ``mamba install`` command or the
+``conda install`` command. You can also control what version of a package you want installed based on
+the following constraints:
+
+.. list-table:: Conda installation constraint types
+   :widths: 30 35 35
+   :header-rows: 1
+
+   * - Constraint type
+     - Syntax
+     - Result
+   * - Fuzzy
+     - ``python=3.11``
+     - 3.11.0, 3.11.1, 3.11.2, etc.
+   * - Exact
+     - ``python==3.11``
+     - 3.11.0
+   * - Greater than or equal to
+     - ``"python>=3.11"``
+     - 3.11 or higher
+   * - OR
+     - ``"python=3.11.1|3.11.3"``
+     - 3.11.1, 3.11.3
+   * - AND
+     - ``"python>=3.11,<3.13"``
+     - 3.11, 3.12, not 3.13
+
+For example,
+
+.. code-block:: bash
+
+    mamba install python=3.11 # or conda install python=3.11
+    # NOTE: the quotation marks are necessary 
+    # to protect the < and > symbols from the shell.
+    mamba install "python>=3.11.1" # or conda install "python>=3.11.1"
+
+Installing packages with pip
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+.. warning::
+    If pip is not installed in your environment, either:
+    
+    - The shell won't find ``pip``, or  
+    - It will use a system-wide version, potentially failing due to lack of permissions to
+      install packages system-wide.
+
+    Always check that pip is installed in the environment you activated with
+    ``conda list -n env_name pip``. The output should look similar to this:
+
+    .. code-block:: text
+
+        # packages in environment at /home/user/.conda/envs/env_name:
+        #
+        # Name                    Version                   Build  Channel
+        pip                       25.1.1             pyh145f28c_0    conda-forge
+
+We recommend using pip within an environment only if the package you need to install is
+not already available in ``conda-forge`` or another (open-source) conda channel. For example,
+newer versions of PyTorch are no longer installable via conda and thus must be installed via pip:
+
+.. code-block:: bash
+
+    pip3 install torch torchvision torchaudio
+
+
 
 Here are some useful conda commands users are encouraged to get familiar with:
 
