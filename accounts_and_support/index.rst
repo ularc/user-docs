@@ -1,0 +1,66 @@
+Request an account
+###################
+
+Please review the following instructions carefully.
+**Each applicant must log in and complete their own account request using their unique ULINK account**.
+
+**To obtain an account, you must either be a faculty member or be affiliated
+with a faculty-led research project**.
+If you are employed by outside funding (e.g. grant-enabled student assistants or non-enrolled students),
+or are external to the university but have a working relationship for research purposes, then you may
+qualify for a *Sponsored account*. Refer to Section
+:ref:`Accounts for non-UofL but affiliated individuals <sponsored-accounts>`.
+
+Accounts for UofL individuals
+=============================
+
+If you are a faculty member,
+you are considered the faculty lead/PI and should enter yourself in that role.
+If you are not a faculty member, provide the name of the faculty lead/PI
+for the research project you will be working on.
+
+To request an HPC account:
+
+#. Navigate to the `University's Service Desk portal <https://louisville.edu/its/get-help/its-helpdesk>`_ and
+   log into the portal using your ULINK credentials.
+
+#. Vlick on the *IT Service Catalog* Tab, Then on the *Accounts and Security* option.
+
+    .. image:: images/ul_services_it_catalog_tab.png
+      :width: 600
+      :alt: UL Services IT Catalog - Accounts and Security
+
+#. Click on *Request an HPC Account* and fill out the form that will pop-up.
+   When filling out your request, be sure to indicate any additional systems (e.g., "bigdata")
+   to which you are requesting access along with LARCC. Include these details in the
+   *Please state the purpose for which the account is being requested* section,
+   along with any other required information.
+
+    .. image:: images/ul_services_accounts_request_hpc_account.png
+      :width: 600
+      :alt: UL Services IT Catalog - Request an HPC Account
+
+.. _sponsored-accounts:
+
+Accounts for non-UofL but affiliated individuals
+================================================
+
+You must obtain a ULINK account before proceeding with your HPC account request. 
+For additional details and access to the request form, 
+refer to the
+`Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>_`.
+
+.. image:: images/ul_its_sponsored_accounts.png
+  :width: 600
+  :alt: UL Services IT Catalog - Request an HPC Account
+
+Be sure to request both VPN and UofL email functionality for the sponsored account, as:
+
+- VPN access is required to log in to research systems.
+- UofL email is needed to receive system status updates and sensitive security notifications.
+
+Once your sponsored account is ready, email the Research Computing team at ithpc@louisville.edu,
+including your ULINK ID. We will then apply the final adjustments needed to enable you
+to submit an account request through the University's Ticketing System.
+After we reply confirming that your account is ready,
+log in to the Service Desk portal using your ULINK credentials.
