@@ -38,7 +38,7 @@ indicates whether or not there is a disk location accessible to the user's works
 and the workers on the cluster. Option ``PluginScriptsLocation`` specifies the
 full path to the plugin script folder that contains the
 `matlab-parallel-slurm-plugin <https://github.com/mathworks/matlab-parallel-slurm-plugin#readme>`_ or other
-scheduler related plugin. 
+scheduler related plugin.
 
 .. code-block:: matlabsession
 
@@ -52,43 +52,12 @@ scheduler related plugin.
 
 Some of the functions that support the use of cluster profiles are:
 ``batch``, ``parpool``, ``parcluster``. Uses of some of these functions alongside a cluster profile
-are shown later in Section :ref:`Submitting a batch job <matlab-batch-job>`.
+for LARCC's login node are shown later in Sections :ref:`Submitting a batch job <matlab-batch-job>` and
+and :ref:`Creating a cluster profile for LARCC <create-matlab-larcc-cluster-profile>` respectively.
 
 Users are encouraged to read more about cluster profiles in the
 `"Use Cluster Profiles" section <https://www.mathworks.com/help/parallel-computing/discover-clusters-and-use-cluster-profiles.html>`_
 of MathWorks' documentation.
-
-BEFORE submitting any parallel/distributed job
-==============================================
-
-Users must follow these steps only ONCE (i.e. do it one time and never do it again).
-
-#. Log into the cluster.
-#. Load the matlab module you would like to use. For example, ``module load matlab/r2025a-gcc-11.5.0-cj4bjqf``.
-#. Create a cluster profile by running the following command:
-    
-    .. code-block:: bash
-
-        (
-        cat << EOF
-        profileName = 'larcc-cluster';
-        profiles = parallel.listProfiles;
-        if ~any(strcmp(profileName, profiles))
-            c = parallel.cluster.Generic( ...
-                  'JobStorageLocation', '~/.matlab/local_cluster_jobs/r2025a', ...
-                  'NumWorkers', 60, ...
-                  'ClusterMatlabRoot', '/opt/shared/apps/manual/matlab/r2025a', ...
-                  'OperatingSystem', 'unix', ...
-                  'HasSharedFilesystem', true, ...
-                  'PluginScriptsLocation', '/opt/shared/apps/manual/matlab/r2025a/toolbox/matlab-parallel-slurm-plugin-2.3.0');
-            saveAsProfile(c, profileName);
-        end
-        EOF
-        ) | matlab -nodisplay -nosplash -nodesktop
-
-#. Validate that the cluster profile was saved. To do this,
-   execute matlab again as follows: ``matlab -nodisplay -nosplash -nodesktop -batch "disp(parallel.listProfiles)"``.
-   The output should list the cluster profile ``larcc-cluster``.
 
 .. _matlab-batch-job:
 
@@ -98,13 +67,18 @@ Submitting a batch job
 There are three options to submit MATLAB batch jobs:
 
 #. **Using a Batch Script:**
-    MATLAB is invoked directly from the shell within the batch script, where the project's main `.m` source file is passed to the MATLAB executable. For a detailed walkthrough, refer to Section :ref:`Submit jobs through a batch script <matlab-batch-job-batch-script>`. This method is often the easiest, though it is worth noting that **distributed execution is not available with this option**.
+    MATLAB is invoked directly from the shell within the batch script, where the project's main `.m` source file is passed to the MATLAB executable. For a detailed walkthrough, refer to Section :ref:`Submit jobs through a batch script <matlab-batch-job-batch-script>`. This method is often the easiest, but **distributed execution is not available with this option**.
 
 #. **Using MATLAB's Command Prompt:**
     Users initiate the `matlab` command from the head node. Within the MATLAB prompt, they load the relevant cluster profile and leverage the `batch` option, as detailed in Section :ref:`Submit jobs through MATLAB's command prompt <matlab-batch-job-matlab-prompt>`.
 
 #. **Using a Batch Script and a MATLAB Submission Script:**
     This approach mixes elements from the preceding two methods. A job is scheduled using option 1, which, in turn, allocates a second job executing the main project's code in parallel. The process involves creating a batch script, akin to the first option. However, instead of passing the project's main `.m` source file to the MATLAB executable, an intermediate `.m` file, functioning as the MATLAB submission script, is passed. This intermediate file employs the same commands outlined in option 2 to schedule a new job that employs multiple workers.
+
+.. note::
+    Most users should default to launching matlab using method 1 (i.e. a simple batch script),
+    as it is the easiest and supports parallel execution. Users whose workloads benefit from distributed
+    execution should familiarize themselves with :ref:`Matlab Cluster Profiles <matlab-profiles>` first.
 
 .. _matlab-batch-job-batch-script:
 
@@ -259,3 +233,41 @@ Submit jobs through a batch script and a MATLAB submission script
         matlab -nodisplay -nosplash -nodesktop -r "matlabSubmissionScript"
 
 #. Use the ``sbatch`` command to schedule the job. Following the example from previous steps: ``sbatch /home/user/matlab_test.sh``
+
+.. _create-matlab-larcc-cluster-profile:
+
+Creating a cluster profile for LARCC
+==============================================
+
+The login node acts as a Matlab client in this case. This means that instead of creating a cluster profile
+in their personal or university workstation, an user creates a cluster profile in the login node. The steps are as follows:
+
+#. Log into the cluster.
+#. Load the matlab module you would like to use. For example, ``module load matlab/r2025a-gcc-11.5.0-cj4bjqf``.
+#. Create a cluster profile by running the command below. Make sure to modify the value of variables:
+   ``profileName``, ``numWorkers``, and ``jobStorageLocation`` as you see fit.
+    
+    .. code-block:: bash
+
+        (
+        cat << EOF
+        profileName = 'larcc-cluster';
+        numWorkers = 60;
+        jobStorageLocation = '~/.matlab/local_cluster_jobs/r2025a';
+        profiles = parallel.listProfiles;
+        if ~any(strcmp(profileName, profiles))
+            c = parallel.cluster.Generic( ...
+                  'JobStorageLocation', jobStorageLocation, ...
+                  'NumWorkers', numWorkers, ...
+                  'ClusterMatlabRoot', '/opt/shared/apps/manual/matlab/r2025a', ...
+                  'OperatingSystem', 'unix', ...
+                  'HasSharedFilesystem', true, ...
+                  'PluginScriptsLocation', '/opt/shared/apps/manual/matlab/r2025a/toolbox/matlab-parallel-slurm-plugin-2.3.0');
+            saveAsProfile(c, profileName);
+        end
+        EOF
+        ) | matlab -nodisplay -nosplash -nodesktop
+
+#. Validate that the cluster profile was saved. To do this,
+   execute matlab again as follows: ``matlab -nodisplay -nosplash -nodesktop -batch "disp(parallel.listProfiles)"``.
+   The output list should include a cluster profile with the name set in the ``profileName`` variable.
