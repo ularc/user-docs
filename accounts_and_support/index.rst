@@ -48,7 +48,7 @@ Accounts for non-UofL but affiliated individuals
 You must obtain a ULINK account before proceeding with your HPC account request. 
 For additional details and access to the request form, 
 refer to the
-`Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>_`.
+`Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>`_.
 
 .. image:: images/ul_its_sponsored_accounts.png
   :width: 600
