@@ -1,3 +1,12 @@
+
+Conda (Anaconda/Miniconda/Miniforge)
+####################################
+
+.. toctree::
+   :maxdepth: 3
+
+   conda
+
 Jupyter
 #######
 
