@@ -171,6 +171,20 @@ newer versions of PyTorch are no longer installable via conda and thus must be i
     pip3 install torch torchvision torchaudio
 
 
+Cloning an environment
+^^^^^^^^^^^^^^^^^^^^^^
+
+Sometimes you may want to create a new conda environment based on an existing one. To do this:
+
+#. Activate the environment you want to clone.
+#. Export its package list to a YAML file with.
+   ``mamba env export > environment.yml`` or ``conda env export > environment.yml``
+#. Deactivate the environment.
+#. Create the new environment with ``mamba env create --name new_env -f environment.yml``
+   or ``conda env create --name new_env -f environment.yml``.
+
+Miscellaneous
+^^^^^^^^^^^^^
 
 Here are some useful conda commands users are encouraged to get familiar with:
 
