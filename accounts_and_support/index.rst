@@ -6,10 +6,12 @@ Please review the following instructions carefully.
 
 **To obtain an account, you must either be a faculty member or be affiliated
 with a faculty-led research project**.
-If you are employed by outside funding (e.g. grant-enabled student assistants or non-enrolled students),
-or are external to the university but have a working relationship for research purposes, then you may
-qualify for a *Sponsored account*. Refer to Section
-:ref:`Accounts for non-UofL but affiliated individuals <sponsored-accounts>`.
+
+..
+  If you are employed by outside funding (e.g. grant-enabled student assistants or non-enrolled students),
+  or are external to the university but have a working relationship for research purposes, then you may
+  qualify for a *Sponsored account*. Refer to Section
+  :ref:`Accounts for non-UofL but affiliated individuals <sponsored-accounts>`.
 
 Accounts for UofL individuals
 =============================
@@ -40,36 +42,30 @@ To request an HPC account:
       :width: 600
       :alt: UL Services IT Catalog - Request an HPC Account
 
-.. _sponsored-accounts:
-
-Accounts for non-UofL but affiliated individuals
-================================================
-
-.. warning::
-  This type of ULINK account requires additional steps to be eligible for a HPC account.
-  Once you have finished the process described below and are granted a Sponsored-ULINK
-  account, you must contact Research Computing (ithpc@louisville.edu) directly to address your case.
-
-You must obtain a ULINK account before proceeding with your HPC account request. 
-For additional details and access to the request form, 
-refer to the
-`Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>`_.
-
-.. image:: images/ul_its_sponsored_accounts.png
-  :width: 600
-  :alt: UL Services IT Catalog - Request an HPC Account
-
-Be sure to request both VPN and UofL email functionality for the sponsored account, as:
-
-- VPN access is required to log in to research systems.
-- UofL email is needed to receive system status updates and sensitive security notifications.
-
-Once your sponsored account is ready, email the Research Computing team at ithpc@louisville.edu,
-including your ULINK ID. We will then apply the final adjustments needed to enable you
-to submit an account request through the University's Ticketing System.
-After we reply confirming that your account is ready,
-log in to the Service Desk portal using your ULINK credentials.
-
+..
+  Accounts for non-UofL but affiliated individuals
+  ================================================
+..
+  You must obtain a ULINK account before proceeding with your HPC account request. 
+  For additional details and access to the request form, 
+  refer to the
+  `Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>`_.
+..  
+  .. image:: images/ul_its_sponsored_accounts.png
+    :width: 600
+    :alt: UL Services IT Catalog - Request an HPC Account
+  
+  Be sure to request both VPN and UofL email functionality for the sponsored account, as:
+..  
+  - VPN access is required to log in to research systems.
+  - UofL email is needed to receive system status updates and sensitive security notifications.
+..  
+  Once your sponsored account is ready, email the Research Computing team at ithpc@louisville.edu,
+  including your ULINK ID. We will then apply the final adjustments needed to enable you
+  to submit an account request through the University's Ticketing System.
+  After we reply confirming that your account is ready,
+  log in to the Service Desk portal using your ULINK credentials.
+  
 Request Support (Tickets)
 #########################
 
@@ -104,3 +100,4 @@ There are 3 different support requests users can issue:
 
 Once you fill out the form, a confirmation will be sent to your UofL email. Likewise, any follow-ups from the
 Research Computing team will be delivered to your email.
+  
