@@ -317,9 +317,31 @@ Queues and jobs
   See Section :ref:`Submitting batch jobs <batch_job>` for more information
 - To **cancel jobs**, users can use the ``scancel`` command as follows: ``scancel jobid``
 
-Limits
-======
+Policies
+########
 
-- Users cannot request more than 3 nodes on a single job.
-- The maximum allowed walltime for jobs on all queues is 14 days and 12h. Contact ITS - Research Computing if more
-  time is required for a job.
+Installing packages system-wide
+===============================
+
+The Research Computing team reviews software installation requests on a case-by-case basis
+to determine whether an application should be installed system-wide or is better suited for local installation
+in a user's home directory. In the latter case, we are happy to provide guidance.
+
+Please note that global installations can be time-consuming due to complex dependency chains.
+If a package definition does not already exist, we must create one to automate the build process,
+including definitions for all dependencies. Since these dependencies are often maintained by different teams,
+compiling and integrating them can be challenging and time-intensive.
+
+While environment modules make it easy to load software, they are not part of the package-building
+or automation process.
+
+Due to the high volume of requests, we prioritize faster solutions like Conda and
+reserve global installations for cases where no suitable alternative exists.
+
+Running applications on the login nodes
+=======================================
+
+Users should avoid running resource-intensive workloads on the login nodes,
+as this can degrade performance and hinder others from accessing the cluster or submitting jobs.
+To maintain a stable and fair environment, the Research Computing Team reserves the right to terminate
+any user processes on the login nodes that are found to negatively impact other users.
