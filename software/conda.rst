@@ -73,6 +73,8 @@ After logging into LARCC, you can start using Miniforge by loading the miniforge
 
 After executing this command, you should see your prompt change (it should now start with ``(base)``).
 
+.. _conda_create_env:
+
 Creating and activating an environment
 --------------------------------------
 
@@ -102,6 +104,8 @@ If you want to indicate a different prefix, you can use the ``--prefix`` option 
 .. code-block:: bash
 
     conda create --prefix /home/user/ProjectA/my_env
+
+.. _conda_install_pkgs:
 
 Installing packages with conda and mamba
 ----------------------------------------
