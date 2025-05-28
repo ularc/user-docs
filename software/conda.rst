@@ -4,7 +4,7 @@ Basics
 ======
 
 About Anaconda, Miniconda and Miniforge
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+---------------------------------------
 
 The Conda installer is a package manager and environment manager for
 Python, R, and other languages. It comes in 3 flavors:
@@ -23,7 +23,7 @@ open-source and customizable environments. Compared to the other 2, it:
 - uses conda-forge as its default channel—a large, community-maintained repository of conda packages.
 
 What is a Conda environment?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 A Conda environment is a self-contained directory that includes:
 
@@ -36,7 +36,7 @@ don't interfere with packages in another.
 
 
 Why use multiple Conda environments?
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------
 
 - **Avoid Conflicts Between Packages**. Different projects may need different package
   versions. Maintaining 1 or multiple environments per project can help in
@@ -63,7 +63,7 @@ Using Conda
 ===========
 
 Loading the miniforge3 module and the base environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+------------------------------------------------------
 
 After logging into LARCC, you can start using Miniforge by loading the miniforge3 module with the command:
 
@@ -74,7 +74,7 @@ After logging into LARCC, you can start using Miniforge by loading the miniforge
 After executing this command, you should see your prompt change (it should now start with ``(base)``).
 
 Creating and activating an environment
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------------
 
 Although you can install packages right after loading the miniforge3 module, which
 activates the base Miniforge environment for you, it is best to create and use named environments instead.
@@ -104,7 +104,7 @@ If you want to indicate a different prefix, you can use the ``--prefix`` option 
     conda create --prefix /home/user/ProjectA/my_env
 
 Installing packages with conda and mamba
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------------------
 
 Once you have activated an environment, you can install packages with the ``mamba install`` command or the
 ``conda install`` command. You can also control what version of a package you want installed based on
@@ -143,7 +143,7 @@ For example,
     mamba install "python>=3.11.1" # or conda install "python>=3.11.1"
 
 Installing packages with pip
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+----------------------------
 
 .. warning::
     If pip is not installed in your environment, either:
@@ -172,7 +172,7 @@ newer versions of PyTorch are no longer installable via conda and thus must be i
 
 
 Cloning an environment
-^^^^^^^^^^^^^^^^^^^^^^
+----------------------
 
 Sometimes you may want to create a new conda environment based on an existing one. To do this:
 
@@ -184,7 +184,7 @@ Sometimes you may want to create a new conda environment based on an existing on
    or ``conda env create --name new_env -f environment.yml``.
 
 Miscellaneous
-^^^^^^^^^^^^^
+-------------
 
 Here are some useful conda commands users are encouraged to get familiar with:
 
@@ -228,3 +228,51 @@ As an example, a typical workflow for python looks like this:
     # So, install it!
     conda install pandas
 
+Conda in a batch job
+==========================
+
+After creating a virtual environment, you can use it within a batch script. Any program
+you install within an environment will become available after said environment is
+activated. That means to effectively use a software installed via Conda in a batch job
+you need to load the ``miniforge3`` module and then instruct the script to activate the
+desired environment.
+
+For example, suppose you created an environment named ``projectA_pytorch``, then you
+could use it as follows:
+
+.. code-block:: bash
+
+  #!/bin/bash
+
+  #SBATCH --job-name=projectA_pytorch_job
+  #SBATCH --partition=compute
+  #SBATCH --output=/home/user/slurm-%x-%j.out 
+  #SBATCH --time=1:00:00
+  #SBATCH --nodes=1
+  #SBATCH --mem=515002
+
+  module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym 
+  conda activate projectA_pytorch
+
+  ## Execute the python script that calls pytorch
+  python program.py
+
+Conda in an interactive job
+=================================
+
+After creating a virtual environment, you can use it within an interactive job. Any program
+you install within an environment will become available after said environment is
+activated. That means to effectively use a software installed via Conda
+you need to load the ``miniforge3`` module, activate the desired environment and run your program.
+
+For example, suppose you created an environment named ``projectA_pytorch``, then you
+could use it as follows:
+
+.. code-block:: bash
+
+  srun --partition=compute --job-name=projectA_pytorch_job --time=1:00:00 --nodes=1 --mem=515002 --pty /bin/bash -i
+  module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym 
+  conda activate projectA_pytorch
+
+  ## Execute the python script that calls pytorch
+  python program.py
