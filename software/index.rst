@@ -23,6 +23,14 @@ Matlab
 
    matlab
 
+R
+###
+
+.. toctree::
+   :maxdepth: 3
+
+   R
+
 RStudio
 #######
 
