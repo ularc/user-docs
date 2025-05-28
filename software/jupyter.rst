@@ -14,6 +14,7 @@ There are multiple ways to launch jupyer in the cluster. At the moment, all of t
 to have basic familiarity with conda environments or, alternatively, the
 python ``venv`` module (See `Python's venv documentation <https://docs.python.org/3/library/venv.html>`_).
 
+.. _jupyter_batch:
 
 Launching Jupyter through a batch job
 =====================================
@@ -90,6 +91,8 @@ the instructions on how to connect to the jupyer web instance. Example output:
     ``10178`` is a randomly picked port and 
     the password ``Oc/ieDDJ0yulxiRP96Wt`` is randomly generated. This means users will be
     provided a new port and password upon a new job submission.
+
+.. _jupyter_interactive:
 
 Launching Jupyter through an interactive job
 ============================================

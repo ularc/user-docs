@@ -257,6 +257,9 @@ could use it as follows:
   ## Execute the python script that calls pytorch
   python program.py
 
+To see a more concrete example, see our documentation on
+how to :ref:`launch jupyter through a batch job <jupyter_batch>`.
+
 Conda in an interactive job
 =================================
 
@@ -276,3 +279,6 @@ could use it as follows:
 
   ## Execute the python script that calls pytorch
   python program.py
+
+To see a more concrete example, see our documentation on
+how to :ref:`launch jupyter through an interactive job <jupyter_interactive>`.
