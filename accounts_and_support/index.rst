@@ -23,7 +23,7 @@ for the research project you will be working on.
 
 To request an HPC account:
 
-#. Navigate to the `University's Service Desk portal <https://louisville.edu/its/get-help/its-helpdesk>`_ and
+#. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
    log into the portal using your ULINK credentials.
 
 #. Click on the *IT Service Catalog* Tab, Then on the *Accounts and Security* option.
@@ -74,7 +74,7 @@ There are 3 different support requests users can issue:
 - **Software:** This category includes installation of software, assistance with software purchases,
   bug reporting/debugging, troubleshooting and upgrading software. To issue a hardware request:
 
-  #. Navigate to the `University's Service Desk portal <https://louisville.edu/its/get-help/its-helpdesk>`_ and
+  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
      log into the portal using your ULINK credentials.
   #. Click on *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
   #. Click *"Request for Research Software Support"*.
@@ -83,7 +83,7 @@ There are 3 different support requests users can issue:
 - **Hardware:** This category includes reporting hardware failures, access to the datacenter,
   placement of hardware (e.g. servers) in the datacenter, and assistance in purchasing equipment. 
 
-  #. Navigate to the `University's Service Desk portal <https://louisville.edu/its/get-help/its-helpdesk>`_ and
+  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
      log into the portal using your ULINK credentials.
   #. Click on the *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
   #. Click *"Request for Research Hardware Support"*
@@ -92,7 +92,7 @@ There are 3 different support requests users can issue:
 - **General/Other:** This category is for anything else research computing related, but not encompassed in the other
   two categories (e.g., custom grant text, letters of support, or example citations and acknowledgements).
 
-  #. Navigate to the `University's Service Desk portal <https://louisville.edu/its/get-help/its-helpdesk>`_ and
+  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
      log into the portal using your ULINK credentials.
   #. Click on the *"Helpdesk"* tab at the top of the page.
   #. Click *"Request for Research Support"*.
