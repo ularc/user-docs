@@ -30,9 +30,20 @@ Recommended Workflow
 A common and efficient workflow for running jobs on the system is:
 
 1. **Prepare Input Data**: Copy necessary input files from your ``home`` storage to the node's local ``scratch`` storage at the start of your job.
+   You can use the ``pdsh`` command for this. An example is shown below.
+
+  .. code-block:: bash
+
+    pdsh -w $SLURM_JOB_NODELIST -R ssh "cp -r /home/$USER/input_data /mnt/scratch/local/$USER/";
+
 2. **Run the Application**: Configure your application to read from and write to the ``scratch`` storage during execution.
    This takes advantage of its high-speed performance.
 3. **Save Results**: Once the job completes, copy the output files back to your ``home`` storage for long-term retention.
+   You can use the ``pdsh`` command for this. An example is shown below.
+
+  .. code-block:: bash
+
+    pdsh -w $SLURM_JOB_NODELIST -R ssh "cp -r /mnt/scratch/local/$USER/results /home/$USER/";
 
 .. note::
 
