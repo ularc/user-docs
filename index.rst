@@ -20,6 +20,12 @@ LARCC User Documentation
 
 .. toctree::
    :maxdepth: 3
+   :caption: Storage
+
+   storage/index
+
+.. toctree::
+   :maxdepth: 3
    :caption: Jobs
 
    jobs/index
