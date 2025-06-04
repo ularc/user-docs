@@ -66,15 +66,23 @@ Copy input data from home to scratch on all nodes
 
    pdsh -R ssh -w $SLURM_JOB_NODELIST "cp -r /home/$USER/input /mnt/scratch/local/$USER/"
 
+For example, assume you submitted a batch job requesting 3 nodes and slurm allocated ``larcc-cpu[1-3]`` such
+that ``larcc-cpu1`` is chosen as the node where the batch script is to be executed from. Then, the ``pdsh``
+command above would:
+
+#. Create 3 (parallel) ssh sessions from ``larcc-cpu1`` to itself, ``larcc-cpu2`` and ``larcc-cpu3``.
+#. Within each session, instruct the node to copy the folder ``/home/$USER/input`` to ``/mnt/scratch/local/$USER/``
+
 .. image:: images/pdsh_home_to_scratch.png
-   :width: 600
+   :width: 900
    :alt: Logical Storage Architecture
 
 Copy results from scratch to home
 ---------------------------------
 
 .. warning::
-   When copying results back to ``home``, ensure unique filenames or directories to prevent nodes from overwriting each other's output. The examples above use the node's hostname as a suffix to avoid conflicts.
+   When copying results back to ``home``, ensure unique filenames or directories to prevent nodes from overwriting each other's output.
+   The commands below use the node's hostname as a suffix to avoid conflicts.
 
 .. code-block:: bash
 
@@ -84,6 +92,32 @@ Copy results from scratch to home
    # Alternatively, move results from scratch to home
    pdsh -R ssh -w $SLURM_JOB_NODELIST "mv /mnt/scratch/local/$USER/results /home/$USER/results_\`hostname\`"
 
+For example, assume you submitted a batch job requesting 3 nodes and slurm allocated ``larcc-cpu[1-3]`` such
+that ``larcc-cpu1`` is chosen as the node where the batch script is to be executed from. Then, the ``pdsh``
+commands above would:
+
+#. Create 3 (parallel) ssh sessions from ``larcc-cpu1`` to itself, ``larcc-cpu2`` and ``larcc-cpu3``.
+#. Within each session, instruct the node to copy (or move if using ``mv``) the folder ``/mnt/scratch/local/$USER/results``
+   to ``/home/$USER/``, appending ``_`` followed by the node's hostname to the copy. i.e., 
+   
+   .. code-block:: bash
+
+      # larcc-cpu1 executes:
+      cp -r /mnt/scratch/local/$USER/results /home/$USER/results_larcc-cpu1
+      # larcc-cpu2 executes:
+      cp -r /mnt/scratch/local/$USER/results /home/$USER/results_larcc-cpu2
+      # larcc-cpu3 executes:
+      cp -r /mnt/scratch/local/$USER/results /home/$USER/results_larcc-cpu3
+
+.. image:: images/pdsh_scratch_to_home.png
+   :width: 900
+   :alt: Logical Storage Architecture
+
+Simplified Copy for Aggregated Results
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+If your application aggregates results on the submission node (e.g., via MPI reduction), and per-node outputs are not needed,
+you can use a standard copy command instead of ``pdsh``.
 
 Batch Script Example
 --------------------
@@ -104,10 +138,7 @@ Here's how this workflow fits into a typical Slurm batch script:
    # Copy results back to home
    pdsh -R ssh -w $SLURM_JOB_NODELIST "cp -r /mnt/scratch/local/$USER/results /home/$USER/results_\`hostname\`"
 
-Simplified Copy for Aggregated Results
---------------------------------------
-
-If your application aggregates results on the submission node (e.g., via MPI reduction), and per-node outputs are not needed, you can use a standard copy command:
+For aggregated results (e.g., via MPI reduction):
 
 .. code-block:: bash
 
