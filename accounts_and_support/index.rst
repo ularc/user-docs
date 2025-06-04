@@ -59,7 +59,7 @@ To connect to the VPN for the first time:
 
     #. Choose a client based on your Operating System to download and install.
 
-    #. When the client prompts for a login, the the **Portal** parameter is **vpn.louisville.edu**
+    #. When the client prompts for a login, the **Portal** parameter is **vpn.louisville.edu**
 
     When you have successfully connected, a **services connected** icon will appear in your taskbar
 
