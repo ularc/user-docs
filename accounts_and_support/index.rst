@@ -42,6 +42,33 @@ To request an HPC account:
       :width: 600
       :alt: UL Services IT Catalog - Request an HPC Account
 
+UofL VPN Connection
+=============================
+
+As part of the HPC onboarding process, you are set up with a University supplied VPN account.
+The VPN is required to connect to University Resources from off campus.
+
+To connect to the VPN for the first time:
+
+For Windows and Mac:
+
+#. Browse to `https://vpn.louisville.edu <https://vpn.louisville.edu>`_ and log in.
+
+#. Choose a client based on your Operating System to download and install.
+
+#. When the client prompts for a login, the "Portal" parameter is "vpn.louisville.edu"
+
+When you have successfully connected, a "services connected" icon will appear in your taskbar
+
+For Linux users:
+
+#. Create a ticket using the steps found below
+
+#. a member of the Research Computing team will help you in providing a client and the steps needed to
+   configure it to work with your specific OS
+
+More information can be found on the `University's VPN information page <https://louisville.edu/its/security/vpn/vpn>`_
+
 ..
   Accounts for non-UofL but affiliated individuals
   ================================================
