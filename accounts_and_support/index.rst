@@ -46,7 +46,8 @@ UofL VPN Connection
 ###################
 
 As part of the HPC onboarding process, you are set up with a University supplied VPN account.
-The VPN is required to connect to University Resources from off campus.
+
+**The VPN is required to connect to Research Computing Resources from off campus.**
 
 To connect to the VPN for the first time:
 
@@ -58,9 +59,9 @@ To connect to the VPN for the first time:
 
     #. Choose a client based on your Operating System to download and install.
 
-    #. When the client prompts for a login, the "Portal" parameter is "vpn.louisville.edu"
+    #. When the client prompts for a login, the the **Portal** parameter is **vpn.louisville.edu**
 
-    When you have successfully connected, a "services connected" icon will appear in your taskbar
+    When you have successfully connected, a **services connected** icon will appear in your taskbar
 
   .. tab:: Mac
 
@@ -68,7 +69,7 @@ To connect to the VPN for the first time:
 
     #. Choose a client based on your Operating System to download and install.
 
-    #. When the client prompts for a login, the "Portal" parameter is "vpn.louisville.edu"
+    #. When the client prompts for a login, the **Portal** parameter is **vpn.louisville.edu**
 
     When you have successfully connected, a "services connected" icon will appear in your taskbar
 
@@ -76,7 +77,7 @@ To connect to the VPN for the first time:
 
     #. Create a ticket using the steps found below
 
-    #. a member of the Research Computing team will help you in providing a client and the steps needed to
+    #. A member of the Research Computing team will help you in providing a client and the steps needed to
        configure it to work with your specific OS
 
 More information can be found on the `University's VPN information page <https://louisville.edu/its/security/vpn/vpn>`_
