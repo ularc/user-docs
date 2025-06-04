@@ -138,6 +138,8 @@ There are 3 different support requests users can issue:
   #. Click *"Request for Research Support"*.
   #. Fill out the form.
 
+**When filling out forms, it is important to specify which cluster you are requesting support for**
+
 Once you fill out the form, a confirmation will be sent to your UofL email. Likewise, any follow-ups from the
 Research Computing team will be delivered to your email.
   
