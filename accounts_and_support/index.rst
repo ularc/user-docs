@@ -26,13 +26,13 @@ To request an HPC account:
 #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
    log into the portal using your ULINK credentials.
 
-#. Click on the *IT Service Catalog* Tab, Then on the *Accounts and Security* option.
+#. Click on the **IT Service Catalog** Tab, Then on the **Accounts and Security** option.
 
     .. image:: images/ul_services_it_catalog_tab.png
       :width: 600
       :alt: UL Services IT Catalog - Accounts and Security
 
-#. Click on *Request an HPC Account* and fill out the form that will pop-up.
+#. Click on **Request an HPC Account** and fill out the form that will pop-up.
    When filling out your request, be sure to indicate any additional systems (e.g., "bigdata")
    to which you are requesting access along with LARCC. Include these details in the
    *Please state the purpose for which the account is being requested* section,
@@ -121,9 +121,9 @@ Request Support (Tickets)
     #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
        log into the portal using your ULINK credentials.
 
-    #. Click on *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
+    #. Click on **ITS Service Catalog** > **Enterprise Services** tab at the top of the page.
 
-    #. Click *"Request for Research Software Support"*.
+    #. Click **Request for Research Software Support**.
 
     #. Fill out the form.
 
@@ -135,9 +135,9 @@ Request Support (Tickets)
     #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
        log into the portal using your ULINK credentials.
   
-    #. Click on the *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
+    #. Click on the **ITS Service Catalog** > **Enterprise Services** tab at the top of the page.
 
-    #. Click *"Request for Research Hardware Support"*
+    #. Click **Request for Research Hardware Support**
 
     #. Fill out the form.
 
@@ -149,9 +149,9 @@ Request Support (Tickets)
     #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
        log into the portal using your ULINK credentials.
   
-    #. Click on the *"Helpdesk"* tab at the top of the page.
+    #. Click on the **Helpdesk** tab at the top of the page.
     
-    #. Click *"Request for Research Support"*.
+    #. Click **Request for Research Support**.
     
     #. Fill out the form.
 
