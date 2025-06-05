@@ -42,6 +42,30 @@ To request an HPC account:
       :width: 600
       :alt: UL Services IT Catalog - Request an HPC Account
 
+..
+  Accounts for non-UofL but affiliated individuals
+  ================================================
+..
+  You must obtain a ULINK account before proceeding with your HPC account request. 
+  For additional details and access to the request form, 
+  refer to the
+  `Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>`_.
+..  
+  .. image:: images/ul_its_sponsored_accounts.png
+    :width: 600
+    :alt: UL Services IT Catalog - Request an HPC Account
+  
+  Be sure to request both VPN and UofL email functionality for the sponsored account, as:
+..  
+  - VPN access is required to log in to research systems.
+  - UofL email is needed to receive system status updates and sensitive security notifications.
+..  
+  Once your sponsored account is ready, email the Research Computing team at ithpc@louisville.edu,
+  including your ULINK ID. We will then apply the final adjustments needed to enable you
+  to submit an account request through the University's Ticketing System.
+  After we reply confirming that your account is ready,
+  log in to the Service Desk portal using your ULINK credentials.
+
 UofL VPN Connection
 ###################
 
@@ -82,63 +106,54 @@ To connect to the VPN for the first time:
 
 More information can be found on the `University's VPN information page <https://louisville.edu/its/security/vpn/vpn>`_
 
-..
-  Accounts for non-UofL but affiliated individuals
-  ================================================
-..
-  You must obtain a ULINK account before proceeding with your HPC account request. 
-  For additional details and access to the request form, 
-  refer to the
-  `Sponsorship Request for User Account section <https://louisville.edu/its/tech-support/accounts/accounts>`_.
-..  
-  .. image:: images/ul_its_sponsored_accounts.png
-    :width: 600
-    :alt: UL Services IT Catalog - Request an HPC Account
-  
-  Be sure to request both VPN and UofL email functionality for the sponsored account, as:
-..  
-  - VPN access is required to log in to research systems.
-  - UofL email is needed to receive system status updates and sensitive security notifications.
-..  
-  Once your sponsored account is ready, email the Research Computing team at ithpc@louisville.edu,
-  including your ULINK ID. We will then apply the final adjustments needed to enable you
-  to submit an account request through the University's Ticketing System.
-  After we reply confirming that your account is ready,
-  log in to the Service Desk portal using your ULINK credentials.
-  
 Request Support (Tickets)
 #########################
 
-There are 3 different support requests users can issue:
+**When filling out Support Request forms, it is important to specify which cluster you are requesting support for**
 
-- **Software:** This category includes installation of software, assistance with software purchases,
-  bug reporting/debugging, troubleshooting and upgrading software. To issue a hardware request:
+.. tabs::
 
-  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
-     log into the portal using your ULINK credentials.
-  #. Click on *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
-  #. Click *"Request for Research Software Support"*.
-  #. Fill out the form.
+  .. tab:: Software
+    
+    This category includes installation of software, assistance with software purchases,
+    bug reporting/debugging, troubleshooting and upgrading software. To issue a hardware request:
 
-- **Hardware:** This category includes reporting hardware failures, access to the datacenter,
-  placement of hardware (e.g. servers) in the datacenter, and assistance in purchasing equipment. 
+    #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
+       log into the portal using your ULINK credentials.
 
-  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
-     log into the portal using your ULINK credentials.
-  #. Click on the *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
-  #. Click *"Request for Research Hardware Support"*
-  #. Fill out the form.
+    #. Click on *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
 
-- **General/Other:** This category is for anything else research computing related, but not encompassed in the other
-  two categories (e.g., custom grant text, letters of support, or example citations and acknowledgements).
+    #. Click *"Request for Research Software Support"*.
 
-  #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
-     log into the portal using your ULINK credentials.
-  #. Click on the *"Helpdesk"* tab at the top of the page.
-  #. Click *"Request for Research Support"*.
-  #. Fill out the form.
+    #. Fill out the form.
 
-**When filling out forms, it is important to specify which cluster you are requesting support for**
+  .. tab:: Hardware
+
+    This category includes reporting hardware failures, access to the datacenter,
+    placement of hardware (e.g. servers) in the datacenter, and assistance in purchasing equipment. 
+
+    #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
+       log into the portal using your ULINK credentials.
+  
+    #. Click on the *"ITS Service Catalog" > "Enterprise Services"* tab at the top of the page.
+
+    #. Click *"Request for Research Hardware Support"*
+
+    #. Fill out the form.
+
+  .. tab:: General/Other
+    
+    This category is for anything else research computing related, but not encompassed in the other
+    two categories (e.g., custom grant text, letters of support, or example citations and acknowledgements).
+
+    #. Navigate to the `University's Service Desk portal <https://servicedesk.louisville.edu/login>`_ and
+       log into the portal using your ULINK credentials.
+  
+    #. Click on the *"Helpdesk"* tab at the top of the page.
+    
+    #. Click *"Request for Research Support"*.
+    
+    #. Fill out the form.
 
 Once you fill out the form, a confirmation will be sent to your UofL email. Likewise, any follow-ups from the
 Research Computing team will be delivered to your email.
