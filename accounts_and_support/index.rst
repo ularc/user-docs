@@ -35,7 +35,7 @@ To request an HPC account:
 #. Click on **Request an HPC Account** and fill out the form that will pop-up.
    When filling out your request, be sure to indicate any additional systems (e.g., "bigdata")
    to which you are requesting access along with LARCC. Include these details in the
-   *Please state the purpose for which the account is being requested* section,
+   **Please state the purpose for which the account is being requested** section,
    along with any other required information.
 
     .. image:: images/ul_services_accounts_request_hpc_account.png
