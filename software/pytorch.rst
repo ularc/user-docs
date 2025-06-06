@@ -62,37 +62,53 @@ After installing PyTorch and activating your environment,
 you can verify that PyTorch detects the available GPUs by using
 the following Python commands on a GPU node:
 
-.. note::
-    Remeber you'll need to request an interactive or batch job
-    to be able to ssh into a GPU node.
-
 .. code-block:: python
 
     import torch
 
-    # Check if CUDA is available
     print("CUDA available:", torch.cuda.is_available())
-
-    # Print the number of GPUs detected
     print("Number of GPUs:", torch.cuda.device_count())
-
-    # Print the name of the current GPU
     if torch.cuda.is_available():
         print("Current GPU:", torch.cuda.get_device_name(torch.cuda.current_device()))
+
+Remember you'll need to request an interactive or batch job
+to be able to ssh into a GPU node. For example:
+
+.. code-block:: bash
+
+    # Submit interactive job
+    srun --partition=gpu --job-name test_my_pytorch_env \
+        --time=05:00 --nodes=1 --gpus=1 --ntasks-per-node=1 \
+        --pty /bin/bash -i
+    
+    # Create python file to test pytorch
+    cat <<EOF > pytorch_test.py
+    import torch
+
+    print("CUDA available:", torch.cuda.is_available())
+    print("Number of GPUs:", torch.cuda.device_count())
+    if torch.cuda.is_available():
+        print("Current GPU:", torch.cuda.get_device_name(torch.cuda.current_device()))
+    EOF
+
+    # Execute the test program
+    module load miniforge3/24.3.0-0-gcc-11.5.0-wkw4vym
+    conda activate my_pytorch_env
+    python pytorch_test.py
 
 If CUDA is available and at least one GPU is detected, you should see output similar to:
 
 .. code-block:: text
 
     CUDA available: True
-    Number of GPUs: 2
+    Number of GPUs: 1
     Current GPU: NVIDIA H100 NVL
 
 .. note::
     If `torch.cuda.is_available()` returns `False`, ensure that:
     
     - You are running on a compute node with GPU access (not a login or cpu node).
-    - **Your job explicitely requested GPUs** (e.g. ``--gpus-per-node=2``)
+    - **Your job explicitely requests 1 or more GPUs** (e.g. ``--gpus=2``, ``--gpus-per-node=2``)
     - Your environment includes a PyTorch build with CUDA support.
     - The appropriate GPU drivers and CUDA libraries are available on the system.
 
