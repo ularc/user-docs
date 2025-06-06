@@ -23,6 +23,14 @@ Matlab
 
    matlab
 
+PyTorch
+#######
+
+.. toctree::
+   :maxdepth: 3
+
+   pytorch
+
 R
 ###
 
