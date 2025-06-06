@@ -175,6 +175,8 @@ newer versions of PyTorch are no longer installable via conda and thus must be i
     pip3 install torch torchvision torchaudio
 
 
+.. _conda_clone_env:
+
 Cloning an environment
 ----------------------
 
