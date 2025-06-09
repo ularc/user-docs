@@ -46,3 +46,11 @@ RStudio
    :maxdepth: 3
 
    rstudio
+
+Tensorflow
+##########
+
+.. toctree::
+   :maxdepth: 3
+
+   tensorflow
