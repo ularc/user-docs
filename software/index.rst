@@ -54,3 +54,11 @@ Tensorflow
    :maxdepth: 3
 
    tensorflow
+
+VASP
+####
+
+.. toctree::
+   :maxdepth: 3
+
+   vasp
