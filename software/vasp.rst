@@ -41,18 +41,29 @@ Example Slurm Job Script
 .. code-block:: bash
 
     #!/bin/bash
+    #SBATCH --job-name=vasp_gpu
     #SBATCH --partition=gpu
     #SBATCH --nodes=1
     #SBATCH --gpus-per-node=2
     #SBATCH --ntasks-per-node=2
     #SBATCH --cpus-per-task=24
     #SBATCH --gpus-per-task=1
+    #SBATCH --time=02:00:00
+    #SBATCH --output=vasp_%j.out
+    #SBATCH --error=vasp_%j.err
+
+    ulimit -l unlimited
 
     module load vasp/6.4.3-nvhpc-25.5-mkl-2025.1
 
-    mpirun -np $SLURM_GPUS --map-by node:PE=$SLURM_CPUS_PER_TASK --bind-to core \
+    # Path to your VASP executable. You can use either of:
+    # vasp_gam, vasp_ncl, or vasp_std
+    # NOTE: The VASP_ROOT variable is set by the VASP module above.
+    VASP_EXEC=$VASP_ROOT/bin/vasp_gam
+
+    mpirun -np $SLURM_NTASKS --map-by node:PE=$SLURM_CPUS_PER_TASK --bind-to core \
         -x OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK \
         -x OMP_STACKSIZE=512m \
         -x OMP_PLACES=cores \
         -x OMP_PROC_BIND=close \
-        vasp_gam ...
+        $VASP_EXEC ...
