@@ -23,6 +23,14 @@ Matlab
 
    matlab
 
+LAMMPS
+######
+
+.. toctree::
+   :maxdepth: 3
+
+   lammps
+
 PyTorch
 #######
 
