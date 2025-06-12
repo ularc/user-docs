@@ -50,6 +50,8 @@ Example Slurm Job Script
     # NOTE: The LAMMPS_ROOT variable is set by the lammps module above
     LAMMPS_EXEC=$LAMMPS_ROOT/bin/lmp_mpi_gpu
 
+    ulimit -l unlimited
+
     # Run the simulation
     mpirun -np $SLURM_NTASKS --bind-to core \
         -x OMP_NUM_THREADS \
