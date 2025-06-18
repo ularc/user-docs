@@ -7,6 +7,10 @@ The cluster provides the following versions of Gaussian:
 
 - **16-A.03**: ``gaussian/16-A.03``
 
+Please note that a scratch directory (GAUSS_SCRDIR) must be present,
+therefore please use an interactive slurm session to do your testing
+as the login node does not have access to a scratch directory at this time.
+
 Running Gaussian
 ================
 
@@ -28,5 +32,15 @@ Example Slurm Job Script
     #SBATCH --error=gaussian_%j.err
 
     module load gaussian/16-A.03
+    module load openmpi
 
-    ## INSERT YOUR JOB HERE - EXAMPLE JOB IS IN DEVELOPMENT ##
+    # Set Gaussian scratch directory
+    # The default is "/mnt/scratch/local/$USER"
+    export GAUSS_SCRDIR=/mnt/scratch/local/$USER/gaussian_scratch
+    mkdir -p $GAUSS_SCRDIR
+
+    # Gaussian input file
+    INPUTFILE="molecule.com"
+
+    # Run Gaussian with MPI support
+    mpirun -np $SLURM_NTASKS g16 < $INPUTFILE > molecule.log
