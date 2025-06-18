@@ -7,6 +7,14 @@ Conda (Anaconda/Miniconda/Miniforge)
 
    conda
 
+Gaussian
+####################################
+
+.. toctree::
+   :maxdepth: 3
+
+   gaussian
+
 Jupyter
 #######
 
