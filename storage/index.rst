@@ -1,3 +1,5 @@
+.. _storage-on-compute-nodes:
+
 Understanding Storage on Compute Nodes
 ######################################
 
