@@ -5,14 +5,30 @@ Using Gaussian
 
 The cluster provides the following versions of Gaussian:
 
-- **16-A.03**: ``gaussian/16-A.03``
-
-Please note that a scratch directory (GAUSS_SCRDIR) must be present,
-therefore please use an interactive slurm session to do your testing
-as the login node does not have access to a scratch directory at this time.
+- **16-A.03**: ``module load gaussian/16-A.03``
 
 Running Gaussian
 ================
+
+When loading a gaussian module, the ``GAUSS_SCRDIR`` is automatically set to your scratch
+space: ``/mnt/scratch/local/$USER`` (see :ref:`our storage guide <storage-on-compute-nodes>` for more information). If you
+want to overwrite this value to use a different directory (e.g. ``/mnt/scratch/local/$USER/gaussian``):
+
+- ensure the folder pointed to by ``GAUSS_SCRDIR`` exists. Keep in mind that your scratch folder ``/mnt/scratch/local/$USER`` is local to each node,
+  deleted at the end of each job and created when starting a new job (see :ref:`our storage guide <storage-on-compute-nodes>` for more information).
+- do so **AFTER** loading the module, else your change will have no effect. For example,
+
+.. code-block:: bash
+
+    # This works
+    mkdir -p /mnt/scratch/local/$USER/gaussian
+    module load gaussian/16-A.03
+    export GAUSS_SCRDIR="/mnt/scratch/local/$USER/gaussian"
+
+    # This does not
+    mkdir -p /mnt/scratch/local/$USER/gaussian
+    export GAUSS_SCRDIR="/mnt/scratch/local/$USER/gaussian"
+    module load gaussian/16-A.03
 
 Example Slurm Job Script
 ------------------------
