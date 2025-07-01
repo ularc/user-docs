@@ -72,54 +72,41 @@ for their specific needs.
 Batch Job Example
 ^^^^^^^^^^^^^^^^^
 
-Consider the following bash script that defines a
-job named 2d_driven_cavity_flow:
+Consider the following bash script:
 
 ..  code-block:: bash
     :caption: Example bash script to launch a batch job
 
      #!/bin/bash
-     #SBATCH --job-name=2d_driven_cavity_flow
-     #SBATCH --error=/home/user/2d_driven_cavity_flow.err.%j
-     #SBATCH --output=/home/user/2d_driven_cavity_flow.out.%j
+     #SBATCH --job-name=example_batch_job
+     #SBATCH --error=/home/user/%x.%j.err
+     #SBATCH --output=/home/user/%x.%j.out
      #SBATCH --time=05:30:00
-     #SBATCH --ntasks=16
-     #SBATCH --nodes=1
-     #SBATCH --partition=longjobs
+     #SBATCH --ntasks-per-node=128
+     #SBATCH --nodes=2
+     #SBATCH --partition=compute
      
-     # START CONFIGURING ENVIRONMENT
+     # print list of nodes assigned to the job.
+     # Example output:
+     # larcc-cpu1
+     # larcc-cpu2
+     scontrol show hostnames $SLURM_JOB_NODELIST
 
-     # load Ansys 2023R1 modulefile
-     module load ansys/2023r1
-     # Generate list of hosts where ansys processes
-     # will run
-     HOSTLIST="hosts.$SLURM_JOB_ID"
-     srun hostname | sort > $HOSTLIST
 
-     # FINISHED CONFIGURING ENVIRONMENT
-
-     # Run Fluent
-     fluent 3ddp \
-         -g \
-         -mpi=openmpi\
-         -t $SLURM_NTASKS \
-         -cnf=$HOSTLIST \
-         -i /home/user/2d_driven_cavity_flow.jou \
-         > 2d_driven_cavity_flow.out
-
-In this script, the job is assigned the name *2d_driven_cavity_flow* using the ``#SBATCH --job-name``
+In this script, the job is assigned the name *example_batch_job* using the ``#SBATCH --job-name``
 directive. The maximum allowed running time is set to 5 hours and 30 minutes through the 
-``#SBATCH --time`` directive. The job is configured to utilize 1 node (``#SBATCH --nodes``)
-and 16 processors (``#SBATCH --ntasks``). It is intended to run in the *longjobs* queue
+``#SBATCH --time`` directive. The job is configured to utilize 2 nodes (``#SBATCH --nodes``)
+and 128 processors per node (``#SBATCH --ntasks-per-node``). It is intended to run in the *compute* queue
 (``#SBATCH --partition``). Any encountered error messages are to be stored in the file 
-``/home/user/2d_driven_cavity_flow.err.%j``, where ``%j`` is replaced with the job ID assigned by Slurm.
-Similarly, non-error messages are directed to the file ``/home/user/2d_driven_cavity_flow.out.%j``
-for logging purposes. The environmental variables ``SLURM_JOB_ID`` and ``SLURM_NTASKS`` are passed
+``/home/user/%x.%j.out``, where ``%x`` is replaced with the job name specified with the
+``#SBATCH --job-name`` directive and ``%j`` is replaced with the job ID assigned by Slurm.
+Similarly, non-error messages are directed to the file ``/home/user/%x.%j.err``
+for logging purposes. The environmental variable ``SLURM_JOB_NODELIST`` is passed
 to the script by slurm (see section :ref:`Slurm environmental variables <slurm_env_vars>`).
 
-Suppose this script is located at path: ``/home/user/2d_driven_cavity.sh``. Then,
+Suppose this script is located at path: ``/home/user/example_batch_job.sh``. Then,
 the command below would submit the batch job to slurm:
 
 ..  code-block:: bash
     
-    sbatch /home/user/2d_driven_cavity.sh
+    sbatch /home/user/example_batch_job.sh
