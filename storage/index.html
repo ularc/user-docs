@@ -1,0 +1,298 @@
+
+
+<!DOCTYPE html>
+<html class="writer-html5" lang="en" data-content_root="../">
+<head>
+  <meta charset="utf-8" /><meta name="viewport" content="width=device-width, initial-scale=1" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Understanding Storage on Compute Nodes &mdash; LARCC User Documentation  documentation</title>
+      <link rel="stylesheet" type="text/css" href="../_static/pygments.css?v=b86133f3" />
+      <link rel="stylesheet" type="text/css" href="../_static/css/theme.css?v=e59714d7" />
+      <link rel="stylesheet" type="text/css" href="../_static/custom.css?v=3ad828ca" />
+
+  
+      <script src="../_static/jquery.js?v=5d32c60e"></script>
+      <script src="../_static/_sphinx_javascript_frameworks_compat.js?v=2cd50e6c"></script>
+      <script src="../_static/documentation_options.js?v=5929fcd5"></script>
+      <script src="../_static/doctools.js?v=9bcbadda"></script>
+      <script src="../_static/sphinx_highlight.js?v=dc90522c"></script>
+    <script src="../_static/js/theme.js"></script>
+    <link rel="index" title="Index" href="../genindex.html" />
+    <link rel="search" title="Search" href="../search.html" />
+    <link rel="next" title="Job Types and Job Submission" href="../jobs/index.html" />
+    <link rel="prev" title="HPC system overview" href="../gettingstarted/index.html" /> 
+</head>
+
+<body class="wy-body-for-nav"> 
+  <div class="wy-grid-for-nav">
+    <nav data-toggle="wy-nav-shift" class="wy-nav-side">
+      <div class="wy-side-scroll">
+        <div class="wy-side-nav-search" >
+
+          
+          
+          <a href="../index.html" class="icon icon-home">
+            LARCC User Documentation
+          </a>
+<div role="search">
+  <form id="rtd-search-form" class="wy-form" action="../search.html" method="get">
+    <input type="text" name="q" placeholder="Search docs" aria-label="Search docs" />
+    <input type="hidden" name="check_keywords" value="yes" />
+    <input type="hidden" name="area" value="default" />
+  </form>
+</div>
+        </div><div class="wy-menu wy-menu-vertical" data-spy="affix" role="navigation" aria-label="Navigation menu">
+              <p class="caption" role="heading"><span class="caption-text">Accounts and support</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../accounts_and_support/index.html">Request an account</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accounts_and_support/index.html#uofl-vpn-connection">UofL VPN Connection</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../accounts_and_support/index.html#request-support-tickets">Request Support (Tickets)</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Getting Started</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted/index.html">HPC system overview</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted/index.html#quickstart">Quickstart</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../gettingstarted/index.html#policies">Policies</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Storage</span></p>
+<ul class="current">
+<li class="toctree-l1 current"><a class="current reference internal" href="#">Understanding Storage on Compute Nodes</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#storage-types">Storage Types</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#scratch-storage"><code class="docutils literal notranslate"><span class="pre">scratch</span></code> Storage</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#home-storage"><code class="docutils literal notranslate"><span class="pre">home</span></code> Storage</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toctree-l1"><a class="reference internal" href="#recommended-workflow">Recommended Workflow</a><ul>
+<li class="toctree-l2"><a class="reference internal" href="#copying-data-between-home-and-scratch">Copying Data Between Home and Scratch</a><ul>
+<li class="toctree-l3"><a class="reference internal" href="#copy-input-data-from-home-to-scratch-on-all-nodes">Copy input data from home to scratch on all nodes</a></li>
+<li class="toctree-l3"><a class="reference internal" href="#copy-results-from-scratch-to-home">Copy results from scratch to home</a><ul>
+<li class="toctree-l4"><a class="reference internal" href="#simplified-copy-for-aggregated-results">Simplified Copy for Aggregated Results</a></li>
+</ul>
+</li>
+<li class="toctree-l3"><a class="reference internal" href="#batch-script-example">Batch Script Example</a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Jobs</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../jobs/index.html">Job Types and Job Submission</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../jobs/index.html#job-environment">Job Environment</a></li>
+</ul>
+<p class="caption" role="heading"><span class="caption-text">Software</span></p>
+<ul>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html">Conda (Anaconda/Miniconda/Miniforge)</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#gaussian">Gaussian</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#jupyter">Jupyter</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#matlab">Matlab</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#lammps">LAMMPS</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#pytorch">PyTorch</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#r">R</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#rstudio">RStudio</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#tensorflow">Tensorflow</a></li>
+<li class="toctree-l1"><a class="reference internal" href="../software/index.html#vasp">VASP</a></li>
+</ul>
+
+        </div>
+      </div>
+    </nav>
+
+    <section data-toggle="wy-nav-shift" class="wy-nav-content-wrap"><nav class="wy-nav-top" aria-label="Mobile navigation menu" >
+          <i data-toggle="wy-nav-top" class="fa fa-bars"></i>
+          <a href="../index.html">LARCC User Documentation</a>
+      </nav>
+
+      <div class="wy-nav-content">
+        <div class="rst-content">
+          <div role="navigation" aria-label="Page navigation">
+  <ul class="wy-breadcrumbs">
+      <li><a href="../index.html" class="icon icon-home" aria-label="Home"></a></li>
+      <li class="breadcrumb-item active">Understanding Storage on Compute Nodes</li>
+      <li class="wy-breadcrumbs-aside">
+            <a href="../_sources/storage/index.rst.txt" rel="nofollow"> View page source</a>
+      </li>
+  </ul>
+  <hr/>
+</div>
+          <div role="main" class="document" itemscope="itemscope" itemtype="http://schema.org/Article">
+           <div itemprop="articleBody">
+             
+  <section id="understanding-storage-on-compute-nodes">
+<span id="storage-on-compute-nodes"></span><h1>Understanding Storage on Compute Nodes<a class="headerlink" href="#understanding-storage-on-compute-nodes" title="Link to this heading"></a></h1>
+<p>When working on any compute node within the system, there are
+two primary types of storage available to users: <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage and <code class="docutils literal notranslate"><span class="pre">home</span></code> storage.
+These are illustrated in the diagram below:</p>
+<a class="reference internal image-reference" href="../_images/logical_storage_architecture.png"><img alt="Logical Storage Architecture" src="../_images/logical_storage_architecture.png" style="width: 600px;" />
+</a>
+<section id="storage-types">
+<h2>Storage Types<a class="headerlink" href="#storage-types" title="Link to this heading"></a></h2>
+<section id="scratch-storage">
+<h3><code class="docutils literal notranslate"><span class="pre">scratch</span></code> Storage<a class="headerlink" href="#scratch-storage" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Local to each compute node</strong>: This means it is <strong>not shared</strong> across nodes.</p></li>
+<li><p><strong>High performance</strong>: Offers significantly faster read/write speeds compared to <code class="docutils literal notranslate"><span class="pre">home</span></code> storage.</p></li>
+<li><p><strong>Limited capacity</strong>: Typically smaller in size, so it’s best suited for temporary files and high-speed I/O operations during job execution.</p></li>
+<li><p><strong>Data retention policy:</strong> ALL DATA IS REMOVED after a job finishes.</p></li>
+</ul>
+</section>
+<section id="home-storage">
+<h3><code class="docutils literal notranslate"><span class="pre">home</span></code> Storage<a class="headerlink" href="#home-storage" title="Link to this heading"></a></h3>
+<ul class="simple">
+<li><p><strong>Shared across all nodes</strong>: Accessible from any compute node in the system.</p></li>
+<li><p><strong>Large capacity</strong>: Designed to store a user’s persistent data, such as source code, datasets, and results.</p></li>
+<li><p><strong>Slower access</strong>: Due to its shared nature, read/write operations are generally slower than <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage.</p></li>
+<li><p><strong>Data retention policy:</strong> Data is kept as this storage space is designed to hold persistent data.</p></li>
+</ul>
+</section>
+</section>
+</section>
+<section id="recommended-workflow">
+<h1>Recommended Workflow<a class="headerlink" href="#recommended-workflow" title="Link to this heading"></a></h1>
+<p>A common and efficient workflow for running jobs on the system is:</p>
+<ol class="arabic simple">
+<li><p><strong>Prepare Input Data</strong>: Copy necessary input files from your <code class="docutils literal notranslate"><span class="pre">home</span></code> storage to the node’s local <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage at the start of your job.</p></li>
+<li><p><strong>Run the Application</strong>: Configure your application to read from and write to the <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage during execution.
+This takes advantage of its high-speed performance.</p></li>
+<li><p><strong>Save Results</strong>: Once the job completes, copy the output files back to your <code class="docutils literal notranslate"><span class="pre">home</span></code> storage for long-term retention.</p></li>
+</ol>
+<p>See Section <a class="reference internal" href="#storage-copy-data"><span class="std std-ref">Copying data between home and scratch</span></a> for more information on how to implement
+this worflow.</p>
+<div class="admonition note">
+<p class="admonition-title">Note</p>
+<p>Always ensure that your input and output data will fit within the available space on <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage.
+If your files exceed this capacity, you may need to adjust your workflow accordingly.</p>
+</div>
+<section id="copying-data-between-home-and-scratch">
+<span id="storage-copy-data"></span><h2>Copying Data Between Home and Scratch<a class="headerlink" href="#copying-data-between-home-and-scratch" title="Link to this heading"></a></h2>
+<p>To efficiently transfer data between your shared <code class="docutils literal notranslate"><span class="pre">home</span></code> storage and node-local <code class="docutils literal notranslate"><span class="pre">scratch</span></code> storage, you can use <code class="docutils literal notranslate"><span class="pre">pdsh</span></code>—a parallel remote shell client that executes commands across multiple nodes simultaneously.</p>
+<p>The general template for the <code class="docutils literal notranslate"><span class="pre">pdsh</span></code> command includes three key components:</p>
+<ul class="simple">
+<li><p><code class="docutils literal notranslate"><span class="pre">-R</span> <span class="pre">ssh</span></code>: Specifies SSH as the remote shell method (always use <code class="docutils literal notranslate"><span class="pre">ssh</span></code>).</p></li>
+<li><p><code class="docutils literal notranslate"><span class="pre">-w</span> <span class="pre">$SLURM_JOB_NODELIST</span></code>: Targets all nodes allocated to your job.</p></li>
+<li><p><strong>Remote command</strong>: Executes on each node, leveraging the fact that <code class="docutils literal notranslate"><span class="pre">home</span></code> is shared while <code class="docutils literal notranslate"><span class="pre">scratch</span></code> is local.</p></li>
+</ul>
+<p>Below are common usage patterns:</p>
+<section id="copy-input-data-from-home-to-scratch-on-all-nodes">
+<h3>Copy input data from home to scratch on all nodes<a class="headerlink" href="#copy-input-data-from-home-to-scratch-on-all-nodes" title="Link to this heading"></a></h3>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span>pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;cp -r /home/</span><span class="nv">$USER</span><span class="s2">/input /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/&quot;</span>
+</pre></div>
+</div>
+<p>For example, assume you submitted a batch job requesting 3 nodes and slurm allocated <code class="docutils literal notranslate"><span class="pre">larcc-cpu[1-3]</span></code> such
+that <code class="docutils literal notranslate"><span class="pre">larcc-cpu1</span></code> is chosen as the node where the batch script is to be executed from. Then, the <code class="docutils literal notranslate"><span class="pre">pdsh</span></code>
+command above would:</p>
+<ol class="arabic simple">
+<li><p>Create 3 (parallel) ssh sessions from <code class="docutils literal notranslate"><span class="pre">larcc-cpu1</span></code> to itself, <code class="docutils literal notranslate"><span class="pre">larcc-cpu2</span></code> and <code class="docutils literal notranslate"><span class="pre">larcc-cpu3</span></code>.</p></li>
+<li><p>Within each session, instruct the node to copy the folder <code class="docutils literal notranslate"><span class="pre">/home/$USER/input</span></code> to <code class="docutils literal notranslate"><span class="pre">/mnt/scratch/local/$USER/</span></code></p></li>
+</ol>
+<a class="reference internal image-reference" href="../_images/pdsh_home_to_scratch.png"><img alt="Logical Storage Architecture" src="../_images/pdsh_home_to_scratch.png" style="width: 900px;" />
+</a>
+</section>
+<section id="copy-results-from-scratch-to-home">
+<h3>Copy results from scratch to home<a class="headerlink" href="#copy-results-from-scratch-to-home" title="Link to this heading"></a></h3>
+<div class="admonition warning">
+<p class="admonition-title">Warning</p>
+<p>When copying results back to <code class="docutils literal notranslate"><span class="pre">home</span></code>, ensure unique filenames or directories to prevent nodes from overwriting each other’s output.
+The commands below use the node’s hostname as a suffix to avoid conflicts.</p>
+</div>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># Copy results from scratch to home, appending hostname to avoid overwrites</span>
+pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;cp -r /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/results /home/</span><span class="nv">$USER</span><span class="s2">/results_\`hostname\`&quot;</span>
+
+<span class="c1"># Alternatively, move results from scratch to home</span>
+pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;mv /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/results /home/</span><span class="nv">$USER</span><span class="s2">/results_\`hostname\`&quot;</span>
+</pre></div>
+</div>
+<p>For example, assume you submitted a batch job requesting 3 nodes and slurm allocated <code class="docutils literal notranslate"><span class="pre">larcc-cpu[1-3]</span></code> such
+that <code class="docutils literal notranslate"><span class="pre">larcc-cpu1</span></code> is chosen as the node where the batch script is to be executed from. Then, the <code class="docutils literal notranslate"><span class="pre">pdsh</span></code>
+commands above would:</p>
+<ol class="arabic">
+<li><p>Create 3 (parallel) ssh sessions from <code class="docutils literal notranslate"><span class="pre">larcc-cpu1</span></code> to itself, <code class="docutils literal notranslate"><span class="pre">larcc-cpu2</span></code> and <code class="docutils literal notranslate"><span class="pre">larcc-cpu3</span></code>.</p></li>
+<li><p>Within each session, instruct the node to copy (or move if using <code class="docutils literal notranslate"><span class="pre">mv</span></code>) the folder <code class="docutils literal notranslate"><span class="pre">/mnt/scratch/local/$USER/results</span></code>
+to <code class="docutils literal notranslate"><span class="pre">/home/$USER/</span></code>, appending <code class="docutils literal notranslate"><span class="pre">_</span></code> followed by the node’s hostname to the copy. i.e.,</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="c1"># larcc-cpu1 executes:</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/mnt/scratch/local/<span class="nv">$USER</span>/results<span class="w"> </span>/home/<span class="nv">$USER</span>/results_larcc-cpu1
+<span class="c1"># larcc-cpu2 executes:</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/mnt/scratch/local/<span class="nv">$USER</span>/results<span class="w"> </span>/home/<span class="nv">$USER</span>/results_larcc-cpu2
+<span class="c1"># larcc-cpu3 executes:</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/mnt/scratch/local/<span class="nv">$USER</span>/results<span class="w"> </span>/home/<span class="nv">$USER</span>/results_larcc-cpu3
+</pre></div>
+</div>
+</li>
+</ol>
+<a class="reference internal image-reference" href="../_images/pdsh_scratch_to_home.png"><img alt="Logical Storage Architecture" src="../_images/pdsh_scratch_to_home.png" style="width: 900px;" />
+</a>
+<section id="simplified-copy-for-aggregated-results">
+<h4>Simplified Copy for Aggregated Results<a class="headerlink" href="#simplified-copy-for-aggregated-results" title="Link to this heading"></a></h4>
+<p>If your application aggregates results on the submission node (e.g., via MPI reduction), and per-node outputs are not needed,
+you can use a standard copy command instead of <code class="docutils literal notranslate"><span class="pre">pdsh</span></code>.</p>
+</section>
+</section>
+<section id="batch-script-example">
+<h3>Batch Script Example<a class="headerlink" href="#batch-script-example" title="Link to this heading"></a></h3>
+<p>Here’s how this workflow fits into a typical Slurm batch script:</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH ...</span>
+
+<span class="c1"># Copy input to scratch</span>
+pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;cp -r /home/</span><span class="nv">$USER</span><span class="s2">/input /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/&quot;</span>
+
+<span class="c1"># Run your application</span>
+<span class="c1"># ...</span>
+
+<span class="c1"># Copy results back to home</span>
+pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;cp -r /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/results /home/</span><span class="nv">$USER</span><span class="s2">/results_\`hostname\`&quot;</span>
+</pre></div>
+</div>
+<p>For aggregated results (e.g., via MPI reduction):</p>
+<div class="highlight-bash notranslate"><div class="highlight"><pre><span></span><span class="ch">#!/bin/bash</span>
+<span class="c1">#SBATCH ...</span>
+
+<span class="c1"># Copy input to scratch</span>
+pdsh<span class="w"> </span>-R<span class="w"> </span>ssh<span class="w"> </span>-w<span class="w"> </span><span class="nv">$SLURM_JOB_NODELIST</span><span class="w"> </span><span class="s2">&quot;cp -r /home/</span><span class="nv">$USER</span><span class="s2">/input /mnt/scratch/local/</span><span class="nv">$USER</span><span class="s2">/&quot;</span>
+
+<span class="c1"># Run your application</span>
+<span class="c1"># ...</span>
+
+<span class="c1"># Copy final results from scratch to home</span>
+cp<span class="w"> </span>-r<span class="w"> </span>/mnt/scratch/local/<span class="nv">$USER</span>/results<span class="w"> </span>/home/<span class="nv">$USER</span>/
+</pre></div>
+</div>
+</section>
+</section>
+</section>
+
+
+           </div>
+          </div>
+          <footer><div class="rst-footer-buttons" role="navigation" aria-label="Footer">
+        <a href="../gettingstarted/index.html" class="btn btn-neutral float-left" title="HPC system overview" accesskey="p" rel="prev"><span class="fa fa-arrow-circle-left" aria-hidden="true"></span> Previous</a>
+        <a href="../jobs/index.html" class="btn btn-neutral float-right" title="Job Types and Job Submission" accesskey="n" rel="next">Next <span class="fa fa-arrow-circle-right" aria-hidden="true"></span></a>
+    </div>
+
+  <hr/>
+
+  <div role="contentinfo">
+    <p>&#169; Copyright 2025, ITS - Research Computing.</p>
+  </div>
+
+  Built with <a href="https://www.sphinx-doc.org/">Sphinx</a> using a
+    <a href="https://github.com/readthedocs/sphinx_rtd_theme">theme</a>
+    provided by <a href="https://readthedocs.org">Read the Docs</a>.
+   
+
+</footer>
+        </div>
+      </div>
+    </section>
+  </div>
+  <script>
+      jQuery(function () {
+          SphinxRtdTheme.Navigation.enable(true);
+      });
+  </script> 
+
+</body>
+</html>
