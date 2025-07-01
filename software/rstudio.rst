@@ -1,7 +1,7 @@
 Pre-launch
 ==========
 
-1. Login to the cluster and download a singularity image from the rocker project 
+1. Login to the cluster and download a singularity/apptainer image from the rocker project 
    (https://hub.docker.com/r/rocker/rstudio/tags). Pick one with the desired version of R. For example:
 
    - Download image for R 4.5
@@ -9,7 +9,7 @@ Pre-launch
    .. code-block:: bash
 
     [user@larcc-login1 ~]$ module load apptainer/1.3.4-gcc-11.5.0
-    [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:4.5
+    [user@larcc-login1 ~]$ apptainer pull docker://rocker/rstudio:4.5
     [user@larcc-login1 ~]$ ls
     rstudio_4.5.sif
 
@@ -18,7 +18,7 @@ Pre-launch
    .. code-block:: bash
 
     [user@larcc-login1 ~]$ module load apptainer/1.3.4-gcc-11.5.0
-    [user@larcc-login1 ~]$ singularity pull docker://rocker/rstudio:latest
+    [user@larcc-login1 ~]$ apptainer pull docker://rocker/rstudio:latest
     [user@larcc-login1 ~]$ ls
     rstudio_latest.sif
 
