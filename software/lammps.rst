@@ -1,14 +1,26 @@
 Using LAMMPS
 ============
 
-To use LAMMPS on the cluster, load the ``lammps/20240829.2-nvhpc-25.5`` module with
+The cluster provides the following versions of LAMMPS:
 
-.. code-block:: bash
+.. list-table:: Available versions of LAMMPS
+   :widths: 3 3 3 3 3 7 10
+   :header-rows: 1
 
-    module load lammps/20240829.2-nvhpc-25.5
-
-This build is GPU enabled and was built with support for the packages:
-GPU, KOKKOS, KSPACE, MANYBODY, MOLECULE, REAXFF, RIGID, and OPENMP. The binary name is ``lmp_mpi_gpu``.
+   * - Version
+     - MPI support
+     - CPU support
+     - GPU support
+     - Binary name
+     - Modulefile
+     - Packages
+   * - 20240829.2
+     - yes
+     - yes
+     - yes (**preferred**)
+     - ``lmp_mpi_gpu``
+     - ``lammps/20240829.2-nvhpc-25.5``
+     - GPU, KOKKOS, KSPACE, MANYBODY, MOLECULE, REAXFF, RIGID, OPENMP, EXTRA-MOLECULE, EXTRA-COMPUTE, EXTRA-DUMP, EXTRA-FIX
 
 Running LAMMPS
 ==============
