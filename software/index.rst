@@ -39,6 +39,14 @@ LAMMPS
 
    lammps
 
+LIGGGHTS
+######
+
+.. toctree::
+   :maxdepth: 3
+
+   liggghts
+
 PyTorch
 #######
 
