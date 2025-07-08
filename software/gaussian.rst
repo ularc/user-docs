@@ -5,7 +5,20 @@ Using Gaussian
 
 The cluster provides the following versions of Gaussian:
 
-- **16-A.03**: ``module load gaussian/16-A.03``
+.. list-table:: Available versions of Gaussian
+   :widths: 10 10 10 10 10 
+   :header-rows: 1
+
+   * - Version
+     - Linda support
+     - CPU support
+     - GPU support
+     - Modulefile
+   * - 16-A.03
+     - yes
+     - yes
+     - no
+     - ``gaussian/16-A.03-nvhpc-25.5``
 
 Running Gaussian
 ================
@@ -22,13 +35,13 @@ want to overwrite this value to use a different directory (e.g. ``/mnt/scratch/l
 
     # This works
     mkdir -p /mnt/scratch/local/$USER/gaussian
-    module load gaussian/16-A.03
+    module load gaussian/16-A.03-nvhpc-25.5
     export GAUSS_SCRDIR="/mnt/scratch/local/$USER/gaussian"
 
     # This does not
     mkdir -p /mnt/scratch/local/$USER/gaussian
     export GAUSS_SCRDIR="/mnt/scratch/local/$USER/gaussian"
-    module load gaussian/16-A.03
+    module load gaussian/16-A.03-nvhpc-25.5
 
 Example Slurm Job Script
 ------------------------
@@ -36,21 +49,18 @@ Example Slurm Job Script
 .. code-block:: bash
 
     #!/bin/bash
-    #SBATCH --job-name=gaussian_gpu
-    #SBATCH --partition=gpu
+    #SBATCH --job-name=gaussian_cpu
+    #SBATCH --partition=compute
     #SBATCH --nodes=1
-    #SBATCH --gpus-per-node=2
-    #SBATCH --ntasks-per-node=2
-    #SBATCH --cpus-per-task=24
-    #SBATCH --gpus-per-task=1
+    #SBATCH --ntasks-per-node=1
+    #SBATCH --cpus-per-task=128
     #SBATCH --time=02:00:00
     #SBATCH --output=gaussian_%j.out
     #SBATCH --error=gaussian_%j.err
 
-    module load gaussian/16-A.03
-    module load openmpi
+    module load gaussian/16-A.03-nvhpc-25.5
 
-    # Set Gaussian scratch directory
+    # (OPTIONAL) Set Gaussian scratch directory
     # The default is "/mnt/scratch/local/$USER"
     export GAUSS_SCRDIR=/mnt/scratch/local/$USER/gaussian_scratch
     mkdir -p $GAUSS_SCRDIR
@@ -58,5 +68,5 @@ Example Slurm Job Script
     # Gaussian input file
     INPUTFILE="molecule.com"
 
-    # Run Gaussian with MPI support
-    mpirun -np $SLURM_NTASKS g16 < $INPUTFILE > molecule.log
+    # Run Gaussian
+    g16 < $INPUTFILE > molecule.log
