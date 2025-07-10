@@ -106,6 +106,8 @@ To connect to the VPN for the first time:
 
 More information can be found on the `University's VPN information page <https://louisville.edu/its/security/vpn/vpn>`_
 
+.. _user_support_tickets:
+
 Request Support (Tickets)
 #########################
 
