@@ -389,3 +389,6 @@ Storage restrictions
 - If multiple users from a research lab require a shared space where they can all colaborate,
   their PI (i.e. research coordinator, advisor, etc.) must reach out to us through a ticket. We
   will then evaluate the case and discuss storage capacity, allowed users, among others.
+
+For more information about capacity, storage types, etc., users are encouraged to read
+:ref:`our storage guide <storage-on-compute-nodes>`.
