@@ -387,7 +387,7 @@ Storage restrictions
 
 - ``home`` storage has a quota of 1TB per user.
 - If multiple users from a research lab require a shared space where they can all colaborate,
-  their PI (i.e. research coordinator, advisor, etc.) must reach out to us through a `ticket <user_support_tickets>`. We
+  their PI (i.e. research coordinator, advisor, etc.) must reach out to us through a :ref:`ticket <user_support_tickets>`. We
   will then evaluate the case and discuss storage capacity, allowed users, among others.
 
 For more information about capacity, storage types, etc., users are encouraged to read
