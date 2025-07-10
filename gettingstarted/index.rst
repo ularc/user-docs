@@ -345,3 +345,47 @@ Users should avoid running resource-intensive workloads on the login nodes,
 as this can degrade performance and hinder others from accessing the cluster or submitting jobs.
 To maintain a stable and fair environment, the Research Computing Team reserves the right to terminate
 any user processes on the login nodes that are found to negatively impact other users.
+
+Resource restrictions
+=====================
+
+.. note::
+
+  Please note that exceptions to the restrictions described below **CAN** be made.
+
+  If your workload needs to be given more time to run, you need to use more nodes than
+  what is allowed by default, among others, please reach out to us by creating a ticket
+  and we will be happy to evaluate your case.
+
+Job runtime restrictions
+------------------------
+
+- If the ``--time`` option is not specified when submitting a job,
+  a default runtime of 12 hours is imposed on said job.
+  This applies to both interactive and batch jobs.
+- Jobs sent to the ``compute`` partition can only run for a maximum of 72 hours.
+- Jobs sent to the ``gpu`` partition can only run for a maximum of 48 hours.
+- Users can use a maximum of 2 nodes (across all partitions) at a given time. For example:
+
+  - Consider user *jd01* submits 2 jobs named *A* and *B* such that
+    job *A* requests a node from the ``compute`` partition and *B* from the ``gpu`` partition.
+    Once both jobs start running, any subsequent job *jd01* submits will be queued
+    (i.e. placed in ``PENDING``, or ``PD``, status). Here is an example of how the
+    output of the ``squeue`` command would look like:
+
+    .. code-block:: text
+
+      JOBID PARTITION     NAME     USER ST       TIME  NODES NODELIST(REASON)
+        800   compute        A     jd01  R 1-21:32:01      1 larcc-cpu1
+        799       gpu        B     jd01  R 1-21:32:22      1 larcc-gpu1
+        821       gpu        C     jd01 PD       0:00      1 (QOSMaxNodePerUserLimit)
+
+- Users can submit a maximum of 20 jobs across all partitions.
+
+Storage restrictions
+--------------------
+
+- ``home`` storage has a quota of 1TB per user.
+- If multiple users from a research lab require a shared space where they can all colaborate,
+  their PI (i.e. research coordinator, advisor, etc.) must reach out to us through a ticket. We
+  will then evaluate the case and discuss storage capacity, allowed users, among others.
