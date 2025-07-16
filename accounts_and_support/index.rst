@@ -1,8 +1,9 @@
 Request an account
 ###################
 
-Please review the following instructions carefully.
-**Each applicant must log in and complete their own account request using their unique ULINK account**.
+Before requesting an account, please read :ref:`our usage agreement for the LARCC system <usage-agreemet>`.
+If you agree with the terms, then review the following instructions carefully. Keep in mind that
+**each applicant must log in and complete their own account request using their unique ULINK account**.
 
 **To obtain an account, you must either be a faculty member or be affiliated
 with a faculty-led research project**.

@@ -1,3 +1,16 @@
+.. _usage-agreemet:
+
+Usage Agreement
+###############
+
+Access to and use of the LARCC/CARDS system is contingent upon you agreeing to acknowledge the system 
+(its supporting grants) in any publications and presentations resulting from work performed in whole
+or part on LARCC and CARDS and to notify the PIs of these publications by email.
+The PIs' request the following language:
+
+"This research was supported in part by the U.S. National Science Foundation (NSF)
+under grants OAC2430270 and OAC2322248, and the University of Louisville's Research Computing team."
+
 HPC system overview
 ###################
 
