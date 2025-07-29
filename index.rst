@@ -35,3 +35,9 @@ LARCC User Documentation
    :caption: Software
 
    software/index
+
+.. toctree::
+   :maxdepth: 3
+   :caption: Use Cases
+
+   usecases/index
