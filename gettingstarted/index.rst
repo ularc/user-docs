@@ -19,13 +19,46 @@ About the cluster
 
 LARCC consists of 20 nodes that can be used for computation:
 
-+-------------------+-----------+---------------+--------+
-| Number of servers | CPU cores | GPU quantity  | Memory |
-+===================+===========+===============+========+
-| 10                | 128       | 0             | 502GB  |
-+-------------------+-----------+---------------+--------+
-| 10                | 48        | 2xNvidia H100 | 256GB  |
-+-------------------+-----------+---------------+--------+
+.. list-table:: LARCC hardware specs
+   :widths: 3 3 3 3 3 3 3 3 3 3 3 3
+   :header-rows: 1
+
+   * - Number of servers
+     - Processor
+     - CPU core frequency
+     - CPU sockets per node
+     - CPU cores per socket
+     - Total CPU cores per node
+     - Raw memory
+     - Usable memory
+     - GPU
+     - GPU Memory
+     - GPUs per node
+     - Local storage per node
+   * - 10
+     - AMD EPYC 9554
+     - 3.1 to 3.75 GHz
+     - 2
+     - 64
+     - 128
+     - 512 GiB
+     - 502 GiB
+     - N/A
+     - N/A
+     - 0
+     - 14TB NVMe
+   * - 10
+     - INTEL XEON GOLD 6542Y
+     - 4.1 GHz
+     - 2
+     - 48
+     - 96
+     - 256 GiB
+     - 250 GiB
+     - NVIDIA H100 NVL
+     - 95830 MiB
+     - 2
+     - 28TB NVMe
 
 These nodes are named as follows:
 
