@@ -40,8 +40,7 @@ Example Slurm Job Script
 
     # All requirements will be automatically loaded
     module load liggghts/3.8.0-aocc-5.0.0-openmpi-2qdvhb5
-    
-    ulimit -l unlimited
+    module load liggghts/3.8.0-aocc-5.0.0-openmpi-2qdvhb5
 
     # Run the simulation
     mpirun liggghts < in.file
