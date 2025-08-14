@@ -38,8 +38,7 @@ Example Slurm Job Script
     #SBATCH --mem=515002
     #SBATCH --partition=compute
 
-    # All requirements will be automatically loaded
-    module load liggghts/3.8.0-aocc-5.0.0-openmpi-2qdvhb5
+    module load openmpi/5.0.5-aocc-5.0.0-hzaiun6
     module load liggghts/3.8.0-aocc-5.0.0-openmpi-2qdvhb5
 
     # Run the simulation
