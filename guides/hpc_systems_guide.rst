@@ -136,20 +136,25 @@ Navigating the filesystem
 Filesystem locations (aka. paths)
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
-You indentify a location in the filesystem through a **path**, which follows this general rule:
-root + separator + folder name + separator + ... + separator + final folder or file:
+You indentify a location in the filesystem through a **path**, which has 3 elements:
+A root, a separator, and a folder or file name.
 
 - Windows:
 
+   - **rule to make a path:** root + separator + folder name + separator + ... + separator + (final) folder or file
    - **root:** A letter followed by ``:``, such as ``C:``, or ``D:``.
    - **separator:** The character ``\``.
    - **example of a path:** ``C:\Windows\System32``
 
 - Linux and macOS:
-
+   - **rule to make a path:** root + folder name + separator + ... + separator + (final) folder or file
    - **root:** The character ``/``.
    - **separator:** The character ``/`` (YES, it's the same as the root. Simply put, the first ``/`` in the path is always the root).
    - **example of a path:** ``/home/jd01``.
+
+   .. image:: images/filesystem_path.png
+      :width: 600
+      :alt: Filesystem hPath
 
 Our HPC systems use a **Linux-based hierarchical filesystem**, where everything starts from the root directory ``/``
 (if this statement confuses you, please read section :ref:`Filesystem Hierarchies <filesystem_hierarchies>`).
