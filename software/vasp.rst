@@ -124,8 +124,8 @@ Example Slurm Job Script
 
       In the incorrect example, the shell treats ``vasp_std\--input`` as a single (invalid) command.
 
-Example VASP on GPU
-~~~~~~~~~~~~~~~~~~~
+Example VASP on GPU with Openmpi
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
@@ -157,8 +157,8 @@ Example VASP on GPU
         -x OMP_PROC_BIND=close \
         $VASP_EXEC ...
 
-Example VASP on CPU-only
-~~~~~~~~~~~~~~~~~~~~~~~~
+Example VASP on CPU-only with Intel MPI
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
