@@ -35,6 +35,13 @@ Running VASP
      - ``nvhpc``, ``intel-mkl``
      - ``vasp_gam``, ``vasp_ncl``, and ``vasp_std``
      - ``vasp/6.5.1-nvhpc-25.5-mkl-2025.1``
+   * - 6.5.1
+     - yes (openmpi)
+     - yes
+     - no
+     - ``amd-aocc``, ``amd-aocl``
+     - ``vasp_gam``, ``vasp_ncl``, and ``vasp_std``
+     - ``vasp/6.5.1-aocc-5.0.0-openmpi-5.0.5-aocl-5.0``
    * - 6.4.3
      - yes (openmpi)
      - yes
@@ -112,17 +119,18 @@ Example Slurm Job Script
 
       .. code-block:: bash
 
-         mpirun -np 4 vasp_std \
-         --input input_file
+         mpirun -np 4 \
+         vasp_std
 
       **Example (incorrect):**
 
       .. code-block:: bash
 
-         mpirun -np 4 vasp_std\
-         --input input_file
+         mpirun -np 4\
+         vasp_std
 
-      In the incorrect example, the shell treats ``vasp_std\--input`` as a single (invalid) command.
+      The shell treats the correct example as ``mpirun -np 4 vasp_std`` and the 
+      incorrect example as ``mpirun -np 4vasp_std``.
 
 Example VASP on GPU with Openmpi
 ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
@@ -157,8 +165,42 @@ Example VASP on GPU with Openmpi
         -x OMP_PROC_BIND=close \
         $VASP_EXEC ...
 
-Example VASP on CPU-only with Intel MPI
-~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+Example VASP on CPU-only with Openmpi and AMD libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+
+.. code-block:: bash
+
+    #!/bin/bash
+    #SBATCH --job-name=vasp_cpu_amd
+    #SBATCH --partition=compute
+    #SBATCH --nodes=1
+    #SBATCH --ntasks-per-socket=2
+    #SBATCH --ntasks=4                # 2 MPI ranks per socket × 2 sockets
+    #SBATCH --cpus-per-task=32        # 32 cores per MPI rank
+    #SBATCH --time=24:00:00
+    #SBATCH --output=vasp_output.log
+    #SBATCH --error=vasp_error.log
+
+    ulimit -l unlimited
+
+    module load vasp/6.5.1-aocc-5.0.0-openmpi-5.0.5-aocl-5.0
+
+    # Path to your VASP executable. You can use either of:
+    # vasp_gam, vasp_ncl, or vasp_std
+    # NOTE: The VASP_ROOT variable is set by the VASP module above.
+    VASP_EXEC=$VASP_ROOT/bin/vasp_gam
+
+    mpirun -np $SLURM_NTASKS \
+        --map-by ppr:$SLURM_NTASKS_PER_SOCKET:socket:PE=$SLURM_CPUS_PER_TASK \
+        --bind-to core \
+        -x OMP_NUM_THREADS=$SLURM_CPUS_PER_TASK \
+        -x OMP_STACKSIZE=512m \
+        -x OMP_PLACES=cores \
+        -x OMP_PROC_BIND=close \
+        $VASP_EXEC ...
+
+Example VASP on CPU-only with Intel MPI and Intel libraries
+~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
 
 .. code-block:: bash
 
