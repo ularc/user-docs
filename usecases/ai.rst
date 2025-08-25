@@ -1,6 +1,81 @@
 AI Use Cases
 ############
 
+Pneumonia detection based on Chest X-Ray
+========================================
+
+This use-case is adapted from the Kaggle notebook
+`Chest X-Ray (Pneumonia) - CNN & Transfer Learning <https://www.kaggle.com/code/jonaspalucibarbosa/chest-x-ray-pneumonia-cnn-transfer-learning/notebook>`_.
+
+The purpose of the notebook is to apply Convolutional Neural Networks (CNNs) to Chest X-Ray images in order to identify cases of Pneumonia.
+The dataset used is version 3 of the `Chest X-ray Images <https://www.kaggle.com/datasets/tolgadincer/labeled-chest-xray-images>`_, which includes separate folders for training and testing.
+Within the notebook, the training set is further split into training and validation subsets.
+
+Three approaches are explored for image classification:
+
+1. Basic CNN architecture - A simple model built from scratch.
+2. Transfer Learning - Using a pretrained model with frozen layers to extract features.
+3. Fine-Tuning - Unfreezing the final layers of the pretrained model to improve performance.
+
+To run the notebook's code in LARCC, you can:
+
+1. Download the notebook from Kaggle, launch an instance of jupyter as described :ref:`here <jupyter>` and load the notebook in Jupyter.
+2. Convert the notebook into a python script and run it through a batch or interactive job.
+
+Option 2 offers added benefits like the abilty to speed-up the training of your models, consuming less memory and even creating pipelines
+where multiple models can be trained at the same time.
+
+.. list-table:: 
+
+    * - .. figure:: images/chest-xray/train_data_dist_barplot.png
+           :scale: 70%
+
+           Training data sample distribution
+
+      - .. figure:: images/chest-xray/test_data_dist_barplot.png
+           :scale: 70%
+
+           Test data sample distribution
+    * - .. figure:: images/chest-xray/train_data_dist_pieplot.png
+           :scale: 70%
+
+           Training data percentual distribution
+
+      - .. figure:: images/chest-xray/test_data_dist_pieplot.png
+           :scale: 70%
+
+           Test data percentual distribution
+
+.. list-table:: 
+
+    * - .. figure:: images/chest-xray/cnn_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of CNN
+
+    * - .. figure:: images/chest-xray/cnn_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of CNN
+    * - .. figure:: images/chest-xray/tl_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of Transfer Learning
+
+    * - .. figure:: images/chest-xray/tl_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of Transfer Learning
+    * - .. figure:: images/chest-xray/ft_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of Fine Tuning
+
+    * - .. figure:: images/chest-xray/tl_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of Fine Tuning
+
 Med-BERT
 ========
 
