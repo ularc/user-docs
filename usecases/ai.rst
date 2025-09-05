@@ -1,6 +1,108 @@
 AI Use Cases
 ############
 
+Pneumonia detection based on Chest X-Ray
+========================================
+
+.. note::
+
+  This use case is still a work in progress. We will be
+  adding more information in the coming days and this message will be
+  removed once it's completely documented. Thank you for your patience.
+
+This use-case is adapted from the Kaggle notebook
+`Chest X-Ray (Pneumonia) - CNN & Transfer Learning <https://www.kaggle.com/code/jonaspalucibarbosa/chest-x-ray-pneumonia-cnn-transfer-learning/notebook>`_.
+
+The purpose of the notebook is to apply Convolutional Neural Networks (CNNs) to Chest X-Ray images in order to identify cases of Pneumonia.
+The dataset used is version 3 of the `Chest X-ray Images <https://www.kaggle.com/datasets/tolgadincer/labeled-chest-xray-images>`_, which includes separate folders for training and testing.
+Within the notebook, the training set is further split into training and validation subsets.
+
+Three approaches are explored for image classification:
+
+1. Basic CNN architecture - A simple model built from scratch.
+2. Transfer Learning - Using a pretrained model with frozen layers to extract features.
+3. Fine-Tuning - Unfreezing the final layers of the pretrained model to improve performance.
+
+To run the notebook's code in LARCC, you can:
+
+1. Download the notebook from Kaggle, launch an instance of jupyter as described :ref:`here <jupyter>` and load the notebook in Jupyter.
+2. Convert the notebook into a python script and run it through a batch or interactive job.
+
+Option 2 offers added benefits like the abilty to speed-up the training of your models, consuming less memory and even creating pipelines
+where multiple models can be trained at the same time.
+
+There is, however, a slight problem no matter which option is chosen. The code uses an older version of tensorflow and thus must
+be adapted to ensure it runs properly at the training phase.
+
+Let's start by getting acquinted with the data. When you download and unzip the dataset from kaggle, you end up with 2 folders.
+One that has all the images related to training and validation, and the other has images for testing.
+For example, assuming the user ``jd01`` stored the data in ``/home/jd01/chest_xray``, the directory structure would
+look as below:
+
+.. figure:: images/chest-xray/dataset_structure.png
+   :width: 600
+   :alt: kaggle_dataset_Structure
+
+The ``train`` folder has 5232 images total, out of which 1349 are from healthy patients and 3883 from sick patients.
+The ``test`` folder has 624 images total, out of which 234 are from healthy patients and 390 from sick patients. Both
+of these are depicted below: 
+
+.. list-table:: 
+
+    * - .. figure:: images/chest-xray/train_data_dist_barplot.png
+           :scale: 70%
+
+           Training data sample distribution
+
+      - .. figure:: images/chest-xray/test_data_dist_barplot.png
+           :scale: 70%
+
+           Test data sample distribution
+    * - .. figure:: images/chest-xray/train_data_dist_pieplot.png
+           :scale: 70%
+
+           Training data percentual distribution
+
+      - .. figure:: images/chest-xray/test_data_dist_pieplot.png
+           :scale: 70%
+
+           Test data percentual distribution
+
+We'll first load all the images from the ``train`` folder into our program and split them into 2 groups. 
+One group will contain 20% of the images (i.e 0.20*5232 ~= 1046) and be used for validation purposes
+while the other 80% (i.e. 5232 - 1046 = 4186) is used for training. Then, we'll load the images in the ``test`` folder,
+but won't really use them until after the model has been trained.
+
+.. list-table:: 
+
+    * - .. figure:: images/chest-xray/cnn_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of CNN
+
+    * - .. figure:: images/chest-xray/cnn_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of CNN
+    * - .. figure:: images/chest-xray/tl_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of Transfer Learning
+
+    * - .. figure:: images/chest-xray/tl_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of Transfer Learning
+    * - .. figure:: images/chest-xray/ft_learning_curve_accuracy.png
+           :scale: 70%
+
+           Accuracy of Fine Tuning
+
+    * - .. figure:: images/chest-xray/tl_learning_curve_loss.png
+           :scale: 70%
+
+           Loss of Fine Tuning
+
 Med-BERT
 ========
 
