@@ -25,6 +25,22 @@ To run the notebook's code in LARCC, you can:
 Option 2 offers added benefits like the abilty to speed-up the training of your models, consuming less memory and even creating pipelines
 where multiple models can be trained at the same time.
 
+There is, however, a slight problem no matter which option is chosen. The code uses an older version of tensorflow and thus must
+be adapted to ensure it runs properly at the training phase.
+
+Let's start by getting acquinted with the data. When you download and unzip the dataset from kaggle, you end up with 2 folders.
+One that has all the images related to training and validation, and the other has images for testing.
+For example, assuming the user ``jd01`` stored the data in ``/home/jd01/chest_xray``, the directory structure would
+look as below:
+
+.. figure:: images/chest-xray/dataset_structure.png
+   :width: 600
+   :alt: kaggle_dataset_Structure
+
+The ``train`` folder has 5232 images total, out of which 1349 are from healthy patients and 3883 from sick patients.
+The ``test`` folder has 624 images total, out of which 234 are from healthy patients and 390 from sick patients. Both
+of these are depicted below: 
+
 .. list-table:: 
 
     * - .. figure:: images/chest-xray/train_data_dist_barplot.png
@@ -45,6 +61,11 @@ where multiple models can be trained at the same time.
            :scale: 70%
 
            Test data percentual distribution
+
+We'll first load all the images from the ``train`` folder into our program and split them into 2 groups. 
+One group will contain 20% of the images (i.e 0.20*5232 ~= 1046) and be used for validation purposes
+while the other 80% (i.e. 5232 - 1046 = 4186) is used for training. Then, we'll load the images in the ``test`` folder,
+but won't really use them until after the model has been trained.
 
 .. list-table:: 
 
