@@ -4,6 +4,12 @@ AI Use Cases
 Pneumonia detection based on Chest X-Ray
 ========================================
 
+.. note::
+
+  This use case is still a work in progress. We will be
+  adding more information in the coming days and this message will be
+  removed once it's completely documented. Thank you for your patience.
+
 This use-case is adapted from the Kaggle notebook
 `Chest X-Ray (Pneumonia) - CNN & Transfer Learning <https://www.kaggle.com/code/jonaspalucibarbosa/chest-x-ray-pneumonia-cnn-transfer-learning/notebook>`_.
 
