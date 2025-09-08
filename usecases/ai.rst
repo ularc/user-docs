@@ -44,8 +44,55 @@ look as below:
    :alt: kaggle_dataset_Structure
 
 The ``train`` folder has 5232 images total, out of which 1349 are from healthy patients and 3883 from sick patients.
-The ``test`` folder has 624 images total, out of which 234 are from healthy patients and 390 from sick patients. Both
-of these are depicted below: 
+The ``test`` folder has 624 images total, out of which 234 are from healthy patients and 390 from sick patients. Following
+the example, ``jd01`` can corroborate these numbers as follows: 
+
+.. code-block:: python
+
+  import os
+  import glob
+
+  main_path = "/home/jd01/chest_xray"
+  train_path = os.path.join(main_path,"train")
+  test_path=os.path.join(main_path,"test")
+
+  train_normal = glob.glob(train_path+"/NORMAL/*.jpeg")
+  train_pneumonia = glob.glob(train_path+"/PNEUMONIA/*.jpeg")
+
+  test_normal = glob.glob(test_path+"/NORMAL/*.jpeg")
+  test_pneumonia = glob.glob(test_path+"/PNEUMONIA/*.jpeg")
+
+  num_img_train = len(train_normal) + len(train_pneumonia)
+  num_img_test = len(train_normal) + len(train_pneumonia)
+
+  print(f"Number of healthy patients in {train_path}: {len(train_normal)}" )
+  print(f"Number of sick patients in {train_path}: {len(train_pneumonia)}" )
+  print(f"Total number of images in {train_path}: {num_img_train}")
+
+  print(f"Number of healthy patients in {test_path}: {len(test_normal)}" )
+  print(f"Number of sick patients in {test_path}: {len(test_pneumonia)}" )
+  print(f"Total number of images in {test_path}: {num_img_test}")
+
+Better yet, further exploration of the data can be achieved by making these image paths into dataframes:
+
+.. code-block:: python
+
+  import pandas as pd
+  import numpy as np
+
+  train_list = [x for x in train_normal]
+  train_list.extend([x for x in train_pneumonia])
+
+  df_train = pd.DataFrame(np.concatenate([['Normal']*len(train_normal) , ['Pneumonia']*len(train_pneumonia)]), columns = ['class'])
+  df_train['image'] = [x for x in train_list]
+
+  test_list = [x for x in test_normal]
+  test_list.extend([x for x in test_pneumonia])
+
+  df_test = pd.DataFrame(np.concatenate([['Normal']*len(test_normal) , ['Pneumonia']*len(test_pneumonia)]), columns = ['class'])
+  df_test['image'] = [x for x in test_list]
+
+which can then be used to visualize its distribution:
 
 .. list-table:: 
 
@@ -68,10 +115,168 @@ of these are depicted below:
 
            Test data percentual distribution
 
-We'll first load all the images from the ``train`` folder into our program and split them into 2 groups. 
-One group will contain 20% of the images (i.e 0.20*5232 ~= 1046) and be used for validation purposes
-while the other 80% (i.e. 5232 - 1046 = 4186) is used for training. Then, we'll load the images in the ``test`` folder,
-but won't really use them until after the model has been trained.
+Before creating the model, we need to load all the images from the ``train`` and ``test`` folders into our program. For the training data, we split it into 2 groups. 
+One group contains 20% of the images (i.e 0.20*5232 ~= 1046) and is used for validation purposes (i.e. ``ds_val`` in the code below)
+while the other 80% (i.e. 5232 - 1046 = 4186) is used for training (i.e. ``ds_train``):
+
+.. code-block:: python
+
+  import tensorflow as tf
+
+  IMG_SIZE = 224
+  BATCH = 32
+  SEED = 42
+  VALIDATION_SPLIT = 0.20
+  TRAINING_SPLIT = 1 - VALIDATION_SPLIT
+
+  classes = [ 'NORMAL', 'PNEUMONIA' ]
+
+  ds_train, ds_val = tf.keras.utils.image_dataset_from_directory(
+    train_path,
+    class_names = classes,
+    labels = 'inferred',
+    label_mode = 'binary',
+    image_size = (IMG_SIZE, IMG_SIZE),
+    batch_size = BATCH,
+    seed = SEED,
+    validation_split = VALIDATION_SPLIT,
+    subset='both'
+  )
+
+  ds_test = tf.keras.utils.image_dataset_from_directory(
+    test_path,
+    class_names = classes,
+    labels = 'inferred',
+    label_mode = 'binary',
+    image_size = (IMG_SIZE, IMG_SIZE),
+    batch_size = 1,
+    seed = SEED,
+    shuffle = False
+  )
+
+note that by using ``subset='both'`` we indicate to ``tf.keras.utils.image_dataset_from_directory`` that we want it
+to return a tuple of two datasets, the training and validation datasets respectively.
+
+Then, we'll pre-process the images to make them better suited for training. The original code transforms
+the datasets with ``tf.keras.preprocessing.image.ImageDataGenerator``, but
+we'll follow a different approach and use ``tensorflow.keras.layers``:
+
+.. code-block:: python
+
+  from tensorflow import keras
+  from tensorflow.keras import layers
+
+  AUTOTUNE = tf.data.experimental.AUTOTUNE
+  
+  normalization_layer = layers.Rescaling(1./255)
+  # To achieve a similar zoom range as ImageDataGenerator(zoom_range=0.1)
+  # which is [0.9, 1.1] zoom factor.
+  # The RandomZoom layer takes fractional factors, so -0.1 to 0.1 means
+  # 1 - 0.1 to 1 + 0.1 zoom.
+  zoom_layer = layers.RandomZoom(height_factor=(-0.1, 0.1), width_factor=(-0.1, 0.1))
+  resize_layer = layers.RandomTranslation(height_factor=0.1, width_factor=0.1)
+
+  ds_train = ds_train.map(lambda x, y: (normalization_layer(x), y), num_parallel_calls=AUTOTUNE)
+  ds_train = ds_train.map(lambda x, y: (zoom_layer(x), y), num_parallel_calls=AUTOTUNE)
+  ds_train = ds_train.map(lambda x, y: (resize_layer(x), y), num_parallel_calls=AUTOTUNE)
+
+  ds_val = ds_val.map(lambda x, y: (normalization_layer(x), y), num_parallel_calls=AUTOTUNE)
+
+  ds_test = ds_test.map(lambda x, y: (normalization_layer(x), y), num_parallel_calls=AUTOTUNE)
+
+At this point, we are ready to start defining and training the models.
+
+.. code-block:: python
+
+  import math
+
+  num_training_steps = math.ceil((num_img_train * TRAINING_SPLIT)/BATCH)
+  num_validation_steps = math.ceil((num_img_train * VALIDATION_SPLIT)/BATCH)
+
+CNN Training and Valididation
+------------------------------
+
+.. code-block:: python
+
+  from tensorflow.keras import callbacks
+  from tensorflow.keras.models import Model
+
+  class ColorChannel:
+    GREYSCALE = 1
+    RGB = 3
+    RGBA = 4
+
+  def get_uncompiled_model(img_width, img_height, color_channel):
+      inputs = layers.Input(shape=(img_width, img_height, color_channel))
+
+      # Block One
+      x = layers.Conv2D(filters=16, kernel_size=3, padding='valid')(inputs)
+      x = layers.BatchNormalization()(x)
+      x = layers.Activation('relu')(x)
+      x = layers.MaxPool2D()(x)
+      x = layers.Dropout(0.2)(x)
+
+      # Block Two
+      x = layers.Conv2D(filters=32, kernel_size=3, padding='valid')(x)
+      x = layers.BatchNormalization()(x)
+      x = layers.Activation('relu')(x)
+      x = layers.MaxPool2D()(x)
+      x = layers.Dropout(0.2)(x)
+
+      # Block Three
+      x = layers.Conv2D(filters=64, kernel_size=3, padding='valid')(x)
+      x = layers.Conv2D(filters=64, kernel_size=3, padding='valid')(x)
+      x = layers.BatchNormalization()(x)
+      x = layers.Activation('relu')(x)
+      x = layers.MaxPool2D()(x)
+      x = layers.Dropout(0.4)(x)
+
+      # Head
+      #x = layers.BatchNormalization()(x)
+      x = layers.Flatten()(x)
+      x = layers.Dense(64, activation='relu')(x)
+      x = layers.Dropout(0.5)(x)
+
+      #Final Layer (Output)
+      output = layers.Dense(1, activation='sigmoid')(x)
+
+      model = keras.Model(inputs=[inputs], outputs=output)
+
+      return model
+  
+  early_stopping = callbacks.EarlyStopping(
+    monitor='val_loss',
+    patience=5,
+    min_delta=1e-7,
+    restore_best_weights=True,
+  )
+
+  plateau = callbacks.ReduceLROnPlateau(
+      monitor='val_loss',
+      factor = 0.2,                                     
+      patience = 2,                                   
+      min_delt = 1e-7,                                
+      cooldown = 0,                               
+      verbose = 1
+  )
+
+  cnn_model = get_uncompiled_model(IMG_SIZE, IMG_SIZE, ColorChannel.RGB)
+  cnn_model.compile(loss='binary_crossentropy'
+                , optimizer = keras.optimizers.Adam(learning_rate=3e-5)
+                , metrics=['binary_accuracy'])
+  
+  cnn_training_history = cnn_model.fit(
+    ds_train,
+    batch_size = BATCH, epochs = 50,
+    validation_data=ds_val,
+    callbacks=[early_stopping, plateau],
+    steps_per_epoch=(math.ceil(len(train_df)/BATCH)),
+    validation_steps=(math.ceil(len(val_df)/BATCH))
+  )
+
+  score = model.evaluate(ds_val, steps = math.ceil(len(val_df)/BATCH), verbose = 0)
+  print('(CNN) Val loss:', score[0])
+  print('(CNN) Val accuracy:', score[1])
 
 .. list-table:: 
 
