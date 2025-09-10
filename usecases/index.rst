@@ -1,7 +1,8 @@
-Use Cases
+AI Use Cases
 ############
 
 .. toctree::
    :maxdepth: 3
 
-   ai.rst
+   chest_xray.rst
+   medbert.rst
