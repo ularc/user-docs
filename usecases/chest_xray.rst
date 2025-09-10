@@ -284,7 +284,7 @@ As previously noted:
 - ``num_training_steps = 131``
 - ``num_validation_steps = 33``
 
-After training, we will want to count the number of mispredictions per
+After training, we will want to count the number of mispredictions from each model
 
 .. code-block:: python
 
@@ -720,12 +720,12 @@ For example, is you want to analyze it more interactively using Microsoft Excel.
     def get_yscores(model, dataset):
         y_true = []
         y_scores = []
-        
+
         for images, labels in dataset:
             probs = model.predict(images, verbose=0).flatten()
             y_scores.extend(probs)
             y_true.extend(labels.numpy().flatten())
-        
+
         y_true = np.array(y_true)
         y_scores = np.array(y_scores)
         return (y_true, y_scores)
