@@ -74,6 +74,47 @@ The ``test`` folder includes 624 images—234 healthy and 390 sick. These number
   print(f"Number of sick patients in {test_path}: {len(test_pneumonia)}" )
   print(f"Total number of images in {test_path}: {num_img_test}")
 
+To visualize some these samples in a grid, we can define this function:
+
+.. code-block:: python
+
+    def plot_samples(samples, num_samples, rows, cols, save_as=''):
+        assert rows*cols <= num_samples
+        plt.figure(figsize=(num_samples,num_samples))
+
+        for i in range(0, num_samples):
+            plt.subplot(rows,cols,i + 1)
+            img = cv2.imread(samples[i])
+            img = cv2.resize(img, (IMG_SIZE,IMG_SIZE))
+            plt.imshow(img)
+            plt.axis("off")
+
+        plt.tight_layout()
+        if save_as != '':
+            plt.savefig(save_as, bbox_inches='tight')
+        else:
+            plt.show()
+
+and use it as follows:
+
+.. code-block:: python
+
+    plot_samples(train_normal, 12, 3, 4, save_as="train_samples_normal.png")
+
+.. figure:: images/chest-xray/train_samples_normal.png
+    :scale: 70%
+
+    Samples of healthy patients in training data
+
+.. code-block:: python
+
+    plot_samples(test_pneumonia, 12, 3, 4, save_as="train_samples_pneumonia.png")
+
+.. figure:: images/chest-xray/train_samples_pneumonia.png
+    :scale: 70%
+
+    Samples of sick patients in training data
+
 To facilitate further exploration, we can convert the image paths into dataframes:
 
 .. code-block:: python
@@ -243,6 +284,23 @@ As previously noted:
 - ``num_training_steps = 131``
 - ``num_validation_steps = 33``
 
+After training, we will want to count the number of mispredictions per
+
+.. code-block:: python
+
+    def predict_and_count_misses(model, dataset, target_class):
+        misses = 0
+        for images, labels in dataset:
+            predictions = model.predict(images, verbose=0)
+            predicted_classes = (predictions > 0.5).astype("int32")
+
+            for i in range(len(images)):
+                if predicted_classes[i] != target_class:
+                    continue
+                if labels[i] != predicted_classes[i]:
+                    misses += 1
+        return misses
+
 CNN Training and Validation
 ---------------------------
 
@@ -330,6 +388,15 @@ In this approach, we build a convolutional neural network (CNN) from scratch, wi
   print('(CNN) Val loss:', score[0])
   print('(CNN) Val accuracy:', score[1])
 
+  misses = predict_and_count_misses(cnn_model, ds_val, 0)
+  print(f'Validation - False Negatives: {misses}')
+  misses = predict_and_count_misses(cnn_model, ds_val, 1)
+  print(f'Validation - False Positives: {misses}')
+  misses = predict_and_count_misses(cnn_model, ds_test, 0)
+  print(f'Testing - False Negatives: {misses}')
+  misses = predict_and_count_misses(cnn_model, ds_test, 1)
+  print(f'Testing - False Positives: {misses}')
+
 
 Transfer Learning Training and Validation
 -----------------------------------------
@@ -390,6 +457,15 @@ We then append custom layers tailored to our classification task:
   print('(Transfer Learning) Val loss:', score[0])
   print('(Transfer Learning) Val accuracy:', score[1])
 
+  misses = predict_and_count_misses(tl_model, ds_val, 0)
+  print(f'Validation - False Negatives: {misses}')
+  misses = predict_and_count_misses(tl_model, ds_val, 1)
+  print(f'Validation - False Positives: {misses}')
+  misses = predict_and_count_misses(tl_model, ds_test, 0)
+  print(f'Testing - False Negatives: {misses}')
+  misses = predict_and_count_misses(tl_model, ds_test, 1)
+  print(f'Testing - False Positives: {misses}')
+
 Fine Tuning Training and Validation
 -----------------------------------
 
@@ -435,6 +511,15 @@ allowing the model to adapt these layers to our dataset:
   score = ft_model.evaluate(ds_val, steps=num_validation_steps, verbose = 0)
   print('(Fine Tuning) Val loss:', score[0])
   print('(Fine Tuning) Val accuracy:', score[1])
+
+  misses = predict_and_count_misses(ft_model, ds_val, 0)
+  print(f'Validation - False Negatives: {misses}')
+  misses = predict_and_count_misses(ft_model, ds_val, 1)
+  print(f'Validation - False Positives: {misses}')
+  misses = predict_and_count_misses(ft_model, ds_test, 0)
+  print(f'Testing - False Negatives: {misses}')
+  misses = predict_and_count_misses(ft_model, ds_test, 1)
+  print(f'Testing - False Positives: {misses}')
 
 3. Visualize Metrics
 ====================
@@ -622,3 +707,67 @@ The functions are used as follows:
     * - .. image:: images/chest-xray/ft_roc_curve_validation.png
 
       - .. image:: images/chest-xray/ft_roc_curve_testing.png
+
+4. Save your results for further analyses
+=========================================
+
+We use the functions below to save training and prediction metrics
+in CSV format in case such information needs to be processed later and/or on another software.
+For example, is you want to analyze it more interactively using Microsoft Excel.
+
+.. code-block:: python
+
+    def get_yscores(model, dataset):
+        y_true = []
+        y_scores = []
+        
+        for images, labels in dataset:
+            probs = model.predict(images, verbose=0).flatten()
+            y_scores.extend(probs)
+            y_true.extend(labels.numpy().flatten())
+        
+        y_true = np.array(y_true)
+        y_scores = np.array(y_scores)
+        return (y_true, y_scores)
+
+    def save_training_metrics_per_epoch(model_name, history):
+        df = pd.DataFrame(
+            data={'epoch': history.epoch, 'train_accuracy': history.history['binary_accuracy'], 
+                    'val_accuracy': history.history['val_binary_accuracy']}
+        )
+        df.to_csv(f'{model_name}_accuracy_per_epoch.csv', index=False)
+        df = pd.DataFrame(
+            data={'epoch': history.epoch, 'train_loss': history.history['loss'], 
+                  'val_loss': history.history['val_loss']}
+        )
+        df.to_csv(f'{model_name}_loss_per_epoch.csv', index=False)
+    
+    def save_prediction_metrics(model_name, ds_name, model, dataset):
+        prefix = f'{model_name}_{ds_name}'
+        y_true, y_scores = get_yscores(model, dataset)
+        df = pd.DataFrame(
+            data={'y_true':y_true, 'y_scores': y_scores}
+        )
+        df.to_csv(f'{prefix}_yscores.csv', index=False)
+
+        fpr, tpr, thresholds = roc_curve(y_true, y_scores)
+        df = pd.DataFrame(
+            data={'fpr': fpr, 'tpr':tpr, 'thresholds':thresholds}
+        )
+        df.to_csv(f'{prefix}_roc.csv', index=False)
+
+The functions are used as follows:
+
+.. code-block:: python
+
+    model_names = [ "cnn", "tl", "ft" ]
+    models = [ cnn_model, tl_model, ft_model ]
+    training_histories = [ 
+        cnn_training_history,
+        tl_training_history,
+        ft_training_history
+    ]
+    for name, model, history in zip(model_names, models, training_histories):
+        save_training_metrics_per_epoch(name, history)
+        save_prediction_metrics(name, 'validation', model, ds_val)
+        save_prediction_metrics(name, 'test', model, ds_test)
