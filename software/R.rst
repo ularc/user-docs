@@ -160,7 +160,7 @@ This will also install ``libudunits2``, ``proj``, ``sqlite3``, and other require
 .. _r_pak_manager:
 
 Using the ``pak`` Package Manager
-===============================
+=================================
 
 While ``install.packages()`` works for CRAN, many workflows require packages from Bioconductor, GitHub, or custom sources.
 Tools like ``remotes``, ``devtools``, and ``BiocManager`` help, but managing dependencies across them can be complex.
