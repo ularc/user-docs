@@ -144,7 +144,7 @@ The basic login process remains consistent across all of these platforms:
     :alt: Example: logged into the cluster
 
 Alternatively, users can opt for other popular SSH clients installed on their personal computers,
-such as `MobaXterm <https://mobaxterm.mobatek.net/>`_ and `PuTTY <https://www.putty.org/>`_.
+such as `MobaXterm <https://mobaxterm.mobatek.net/>`_ and `PuTTY <https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html>`_.
 PuTTY boasts a straightforward and user-friendly interface, while MobaXterm offers a 
 tabbed interface with enhanced functionality, including a dedicated file manager 
 that simplifies file management on the cluster and facilitates seamless information
@@ -391,6 +391,8 @@ Users should avoid running resource-intensive workloads on the login nodes,
 as this can degrade performance and hinder others from accessing the cluster or submitting jobs.
 To maintain a stable and fair environment, the Research Computing Team reserves the right to terminate
 any user processes on the login nodes that are found to negatively impact other users.
+
+.. _resource_restrictions:
 
 Resource restrictions
 =====================
