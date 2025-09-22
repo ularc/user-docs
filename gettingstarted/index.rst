@@ -392,6 +392,8 @@ as this can degrade performance and hinder others from accessing the cluster or 
 To maintain a stable and fair environment, the Research Computing Team reserves the right to terminate
 any user processes on the login nodes that are found to negatively impact other users.
 
+.. _resource_restrictions:
+
 Resource restrictions
 =====================
 
