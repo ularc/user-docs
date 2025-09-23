@@ -163,20 +163,20 @@ Here is an example submission line:
 
 .. code-block:: bash
 
-    salloc --job-name=tensorflow --partition=gpu \
-           --nodes=1 --ntasks-per-node=2 \
-           --gpus-per-task=1 --cpus-per-task=24 \
-           --mem-per-gpu=128463M --time=5:00:00
+    salloc --job-name=tensorflow --partition=gpu --nodes=1 --ntasks-per-node=2 --gpus-per-task=1 --cpus-per-task=24 --mem-per-gpu=128463M --time=5:00:00
 
-Once you submit your salloc job, it will follow this life cycle:
+When you submit an interactive job using ``salloc``, it follows a specific lifecycle:
 
-- If the scheduler accepts your job, salloc will pause while your job waits in the queue for resources to be allocated.
-- When the job is allocated, salloc will provide an interactive shell session where you can type commands.
+- **Job Queuing:** If the scheduler accepts your request, ``salloc`` will pause while your job waits in the queue for resources to become available. This is normal behavior—your session won't start until the requested resources are allocated.
 
-  - At this point you can create one or multiple jobsteps with the ``srun`` command, or ssh into the allocated node and
-    manually run an application.
+- **Resource Allocation & Shell Access:** Once the job is allocated, ``salloc`` will launch an interactive shell session on the assigned node(s). You'll be dropped into a command-line environment where you can run commands directly.
 
-- When your shell session exits, salloc will automatically mark your job as completed and release the resources for use by other jobs.
+    - At this point, you can:
+    
+        - Launch one or more job steps using the srun command.
+        - Or, if preferred, SSH into the allocated node and manually run your application.
+
+- **Job Completion:** When you exit the shell session (e.g., by typing exit or closing the terminal), salloc will automatically mark the job as completed and release the allocated resources back to the cluster for other users.
 
 
 2. Submitting interactive jobs with ``srun``
