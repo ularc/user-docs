@@ -2,3 +2,4 @@
    :maxdepth: 3
 
    hpc_systems_guide.rst
+   slurm_guide.rst

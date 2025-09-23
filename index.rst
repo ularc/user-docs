@@ -32,12 +32,6 @@ LARCC User Documentation
 
 .. toctree::
    :maxdepth: 3
-   :caption: Jobs
-
-   jobs/index
-
-.. toctree::
-   :maxdepth: 3
    :caption: Software
 
    software/index
