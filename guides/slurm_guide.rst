@@ -255,7 +255,7 @@ along with Slurm directives to specify resource requirements (e.g., number of no
 Once submitted, the job runs automatically without user interaction. 
 
 Submitting batch jobs
-^^^^^^^^^^^^^^^^^^^^^
+---------------------
 
 The command ``sbatch`` serves as the means to submit batch jobs to Slurm,
 typically in the form of a shell script written in the bash command language.
@@ -313,7 +313,7 @@ During this phase, users would typically initiate the necessary scientific softw
 for their specific needs.
 
 Batch Job Example
-^^^^^^^^^^^^^^^^^
+-----------------
 
 Consider the following bash script:
 
@@ -579,3 +579,22 @@ a GPU, so you can either:
 
 1. Submit 4 array jobs at a time (i.e. ``%4``) if each array job requests a GPU.
 2. Submit 2 array jobs at a time (i.e. ``%2``) if each array job requests 2 GPUs.
+
+.. _slurm_env_vars:
+
+Slurm environmental variables
+=============================
+
+When launching a job, slurm retains information about the servers allocated, cores assigned,
+working directory from which the job was launched, among other things. Slurm passes
+this information to the job via environmental variables. The table below shows some variables
+commonly used within the shell scripts of batch jobs.
+
+.. csv-table:: Commonly used Slurm environmental variables
+  :header-rows: 1
+  :widths:  5, 8, 5
+  :stub-columns: 1
+  :file: csv/slurm_env_vars.csv
+
+For more comprehensive details, please read 
+`Section "OUTPUT ENVIRONMENT VARIABLES" of Slurm's sbatch manual <https://slurm.schedmd.com/sbatch.html#SECTION_OUTPUT-ENVIRONMENT-VARIABLES>`_.
