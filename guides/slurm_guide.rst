@@ -133,58 +133,67 @@ Key Characteristics of a Job Step:
 Interactive Jobs
 ================
 
+.. note::
+
+    Interactive jobs are mainly for testing. For larger workloads, batch jobs are recommended.
+
 These jobs are meant for users who need to run commands or scripts interactively on a compute node.
 For example, if you want to run a program or script and see its output or error messages in real time,
 or if you need to test something quickly.
 
 You can submit an interactive job in two ways:
 
-1. First request resources with the ``salloc`` command followed by creating one or multiple jobsteps
-   with the ``srun`` command. In  Users typically use the following template:
+1. Submitting interactive jobs with ``salloc``
+----------------------------------------------
 
-.. code-block:: bash
-
-    salloc --partition=gpu \
-           --job-name tensorflow \
-           --time=5:00:00 \
-           --nodes=1 \
-           --ntasks=2 \
-           --gpus-per-task=1 \
-           --cpus-per-task=24
-
-2. Run ``srun`` directly to both allocate resources and launch a single jobstep at the same time.
-
-Slurm allocates resources (like CPUs, memory, etc.)
-for your job and opens an interactive session. When this ha
+Use the ``salloc`` command to request resources. Once you do, your terminal's prompt will change but you
+will still be on the login node. The change signifies you have been granted an allocation. Here is an example:
 
 .. code-block:: text
 
-    [jd01@larcc-login1 ~]$ salloc --partition=gpu --job-name tensorflow --time=5:00:00 --nodes=1 --ntasks=2 --gpus-per-task=1 --cpus-per-task=24
+    [jd01@larcc-login1 ~]$ salloc --partition=gpu --job-name=tensorflow --time=5:00:00 --nodes=1 --ntasks=2 --gpus-per-task=1 --cpus-per-task=24
     salloc: Granted job allocation 3844
     salloc: Nodes larcc-gpu4 are ready for job
     bash-5.1$
 
-on one of the allocated nodes.
-You can then execute commands directly in that session.
+You can see in the output above how the prompt changes from ``[jd01@larcc-login1 ~]$`` to ``bash-5.1$`` and messages
+are displayed informing you of the job id and node assigned to your allocation.
 
-Submitting interactive jobs
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+Here is an example submission line:
 
-The ``srun`` command, with the ``-i`` and ``--pty`` options, facilitates launching interactive jobs.
+.. code-block:: bash
+
+    salloc --job-name=tensorflow --partition=gpu \
+           --nodes=1 --ntasks-per-node=2 \
+           --gpus-per-task=1 --cpus-per-task=24 \
+           --mem-per-gpu=128463M --time=5:00:00
+
+Once you submit your salloc job, it will follow this life cycle:
+
+- If the scheduler accepts your job, salloc will pause while your job waits in the queue for resources to be allocated.
+- When the job is allocated, salloc will provide an interactive shell session where you can type commands.
+
+  - At this point you can create one or multiple jobsteps with the ``srun`` command, or ssh into the allocated node and
+    manually run an application.
+
+- When your shell session exits, salloc will automatically mark your job as completed and release the resources for use by other jobs.
+
+
+2. Submitting interactive jobs with ``srun``
+--------------------------------------------
+
+Run ``srun`` directly to both allocate resources and launch a single jobstep at the same time. This has the disadvantage
+that once the job step finishes, so will the allocation.
 Users typically use the following template:
 
 .. code-block:: bash
 
-    srun --nodes=<nodes> --ntasks-per-node=<cpus> --time=<walltime> --pty /bin/bash -i
+    srun --partition=<partition> --nodes=<nodes> --ntasks-per-node=<cpus> --time=<walltime> --pty /bin/bash -i
 
 Here, ``<nodes>`` specifies the number of nodes, 
 ``<cpus>`` denotes processors per node, and ``<walltime>`` sets the maximum duration for the session.
 Additional options like ``--mem`` can be included to customize job requirements
 (see `Slurm's srun manual <https://slurm.schedmd.com/srun.html>`_ for more information).
-
-.. note::
-
-    Interactive jobs are mainly for testing. For larger workloads, batch jobs are recommended.
 
 Upon starting an interactive job, the system provides feedback:
 
@@ -197,27 +206,27 @@ The user is then logged into an allocated node. Ending the session will terminat
 Jobs exceeding walltime or memory limits will be automatically aborted.
 
 Interactive Job Example
-^^^^^^^^^^^^^^^^^^^^^^^
+-----------------------
 
 .. code-block:: bash
 
     # 1. log into the cluster
     ssh user@larcc.hpc.louisville.edu
-    # 2. start a job in the longjobs queue with the following specifications:
+    # 2. start a job in the compute queue with the following specifications:
     #    a) The maximum time allowed for the job to run is 5h (--time=5:00:00)
     #    b) The maximum memory that can be used by the job is 10G (--mem=10G)
     #    c) Run on a single node (--nodes=1)
     #    d) Allocate 4 cores for this job on the node (--ntasks-per-node=4)
     #    e) Instead of hanging and waiting for resources to be available, exit immediately (-i)
     #    f) Specify the task (a shell in this case) to execute (--pty /bin/bash)
-    srun --partition=longjobs --time=5:00:00 --mem=10G --ntasks-per-node=4 --nodes=1 --pty /bin/bash -i
+    srun --partition=compute --time=5:00:00 --mem=10G --ntasks-per-node=4 --nodes=1 --pty /bin/bash -i
 
 .. note::
     The ``-i`` option for ``srun`` is optional. It prevents your terminal from hanging
     if the job is queued due to unavailable resources when the command is executed.
 
 Keeping an interactive job alive
-^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+--------------------------------
 
 To prevent premature termination of interactive jobs due to connection disruptions,
 using a terminal multiplexer like ``tmux`` is recommended. Follow these steps:
@@ -355,10 +364,12 @@ Due to LARCC's resource policies (see :ref:`Resource restrictions <resource_rest
 - 2 nodes maximum per user.
 
 Depending on your resource requests, multiple jobs may run on the same node, but the 20-job submission limit must always be respected. To
-maximize resource utilization while complying with these restrictions, there are two strategies you can follow.
+maximize resource utilization while complying with these restrictions, there are multiple strategies you can follow:
 
-Strategy 1: Single Job with Multiple Job Steps
-----------------------------------------------
+.. _slurm_single_job_multiple_steps:
+
+Single Job with Multiple Job Steps
+----------------------------------
 
 If your workload consists of many small, independent tasks (e.g., 50 simulations), and each task uses only a few cores,
 you can submit a single job that launches multiple parallel job steps within the script.
@@ -406,8 +417,10 @@ which helps ensure the job completes successfully even if a few tasks take longe
 - Submits only one job, staying within the 20-job limit.
 - Maximizes utilization of your allowed 2 nodes.
 
-Strategy 2: Job Arrays
-----------------------
+.. _slurm_job_array_submission:
+
+Job Arrays
+----------
 
 If you prefer to submit each task as a separate job, use Slurm job arrays.
 Each array index counts as a job, so you must limit concurrent jobs to 20.
@@ -439,3 +452,130 @@ Each array index counts as a job, so you must limit concurrent jobs to 20.
 
 - Uses job arrays to manage many tasks.
 - Keeps concurrent jobs within the allowed limit.
+
+Requesting CPU Nodes with Multiple Parallel Tasks
+-------------------------------------------------
+
+This is perhaps the most straightforward scenario and is ideal when you're running an application that uses only CPUs. Below are basic templates for both batch and interactive jobs.
+
+**Batch Job Template**
+
+.. code-block:: bash
+
+    #!/bin/bash
+    #SBATCH --partition=compute
+    #SBATCH --nodes=<nodes>
+    #SBATCH --ntasks-per-node=<processes>
+    #SBATCH --cpus-per-task=<threads>
+    #SBATCH --time=<walltime>
+
+**Interactive Job Template**
+
+.. code-block:: text
+
+    salloc --partition=compute --nodes=<nodes> --ntasks-per-node=<processes> --cpus-per-task=<threads> --time=<walltime>
+
+Now, let's break down how to choose values for ``<nodes>``, ``<processes>``, and ``<threads>`` depending on how your application behaves:
+
+Case 1: Threaded Applications (e.g., OpenMP, TBB, MPI threads)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your application internally distributes work across threads (e.g., using OpenMP or similar), and does not spawn multiple processes, then:
+
+- nodes = 1
+- processes = 1
+- threads = 128 (assuming you're using a full node with 128 cores)
+
+This setup gives your application full access to all cores on a single node for threading.
+
+Case 2: Multi-Process Applications (Single Node)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your application spawns multiple processes that should run within the same node (and does not benefit from distribution across multiple nodes), then:
+
+- nodes = 1
+- processes = 128
+- threads = 1
+
+This configuration runs 128 independent processes, each using one core.
+
+Case 3: Hybrid Parallelism (Multiple Processes, Each with Threads)
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+
+If your application runs multiple processes, and each process uses multiple threads (e.g., VASP without GPU support), then:
+
+- nodes = 1
+- processes = <number of processes>
+- threads = <threads per process>
+
+This allows you to fine-tune how many cores each process uses, while keeping everything within a single node.
+
+Case 4: Multi-Node Jobs
+^^^^^^^^^^^^^^^^^^^^^^^
+
+If your workload requires multiple nodes, set:
+
+- nodes = <number of nodes>
+- processes >= number of nodes (at minimum)
+
+.. warning::
+
+    Be mindful of per-user node limits. Requesting more nodes than allowed will result in job rejection or queuing delays.
+
+Additional Options
+^^^^^^^^^^^^^^^^^^
+
+You can further customize how your tasks run:
+
+- Use multiple job steps within a single job (see: :ref:`Single Job with Multiple Job Steps <slurm_single_job_multiple_steps>`)
+- Use job arrays to manage many similar tasks efficiently (see: :ref:`Job Arrays <slurm_job_array_submission>`)
+
+These approaches help you stay within job submission limits while maximizing resource utilization.
+
+
+Single GPU node with one task per GPU and CPU cores evenly distributed across tasks
+-----------------------------------------------------------------------------------
+
+This setup is ideal for applications that leverage GPU acceleration and can run multiple tasks in parallel.
+
+**Hardware Overview (Per GPU Node)**
+
+- There are 2 GPUs per node in the ``gpu`` partition, so 2 tasks total.
+- There are 48 CPU cores per node in the ``gpu`` partition, so 24 cpus per task (``48 cpus / 2 tasks``)
+- Slurm recognizes 256926MB of RAM on each GPU node, so
+  CPU memory per task (i.e. RAM) = CPU memory per gpu (since we have 1 task per GPU) = 256926MB/2 = 128463MB.
+
+With these numbers in mind, here are the basic templates:
+
+**Batch Job Template**
+
+.. code-block:: bash
+
+    #!/bin/bash
+    #SBATCH --partition=gpu
+    #SBATCH --nodes=<nodes>
+    #SBATCH --ntasks-per-node=2
+    #SBATCH --gpus-per-task=1
+    #SBATCH --cpus-per-task=24
+    #SBATCH --mem-per-gpu=128463M
+    #SBATCH --time=<walltime>
+
+**Interactive Job Template**
+
+.. code-block:: text
+
+    salloc --partition=gpu --nodes=1 --ntasks-per-node=2 --gpus-per-task=1 --cpus-per-task=24 --mem-per-gpu=128463M --time=<walltime>
+
+This configuration ensures that each task gets exclusive access to one GPU and a fair share of CPU and memory resources. It's particularly useful for GPU-enabled applications that:
+
+- Run two independent tasks per node, each using one GPU.
+- Benefit from dedicated CPU cores for preprocessing, I/O, or hybrid CPU-GPU workloads.
+- Require large memory allocations, such as deep learning models or molecular simulations.
+
+If your application only uses one GPU per node, you can adjust ``--ntasks-per-node=1`` and scale up the CPU and memory accordingly.
+
+When arrays keep in mind that each task is bound to
+a GPU, so you can either:
+
+1. Submit 4 array jobs at a time (i.e. ``%4``) if each array job requests a GPU.
+2. Submit 2 array jobs at a time (i.e. ``%2``) if each array job requests 2 GPUs.
