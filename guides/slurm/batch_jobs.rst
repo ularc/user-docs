@@ -190,3 +190,49 @@ You can define array indices in several ways:
             #SBATCH --array=0-49%20
     
       - Submit 50 jobs, with Array Task IDs 0, 1, 2, ..., 48, 49, but only 20 run at a time.
+
+Example Job Array Script
+------------------------
+
+.. code-block:: bash
+
+    #!/bin/bash
+    #SBATCH --partition=compute
+    #SBATCH --array=1-10
+    #SBATCH --ntasks=1
+    #SBATCH --cpus-per-task=4
+    #SBATCH --mem=8G
+    #SBATCH --time=01:00:00
+    #SBATCH --output=job_%A_%a.out
+    #SBATCH --error=job_%A_%a.err
+    #SBATCH --job-name=array_example
+
+    module load my_program
+
+    # Use SLURM_ARRAY_TASK_ID to select input file
+    INPUT_FILE="input_${SLURM_ARRAY_TASK_ID}.dat"
+
+    # Run the program with the selected input
+    my_program --input $INPUT_FILE --output output_${SLURM_ARRAY_TASK_ID}.dat
+
+**Explanation:**
+
+- ``#SBATCH --array=1-10``: Submits 10 jobs, each with a unique array index from 1 to 10.
+- ``#SBATCH --ntasks=1``: Each job runs a single task (i.e., spawns one process).
+- ``#SBATCH --cpus-per-task=4``: Each job requests 4 CPU cores. Since --ntasks=1, this likely means the process will use 4 threads.
+- ``#SBATCH --mem=8G``: Each job requests 8 GB of RAM.
+- ``#SBATCH --time=01:00:00``: Each job can run for up to 1 hour.
+- ``#SBATCH --output=job_%A_%a.out`` and ``#SBATCH --error=job_%A_%a.err``
+    - ``%A``: Replaced with the job ID of the array.
+    - ``%a``: Replaced with the array index (i.e., the value of SLURM_ARRAY_TASK_ID).
+- Each job runs independently with its own input and output.
+
+**Resource Considerations:**
+
+Since these jobs are submitted to the compute partition, we can estimate how they will be scheduled:
+
+- **CPU usage:** 10 jobs * 1 task * 4 cores = 40 cores total. Each node in the compute queue has 128 cores, so all jobs can likely run on a single node.
+
+- **Memory usage:** 10 jobs * 8 GB = 80 GB total. Each node in the compute queue has ~515 GB of RAM, so memory is not a limiting factor.
+
+This means the scheduler may place all 10 jobs on the same node, depending on availability and other jobs in the queue.
