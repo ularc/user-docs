@@ -18,6 +18,7 @@ Job Types and Job Submission
 
    interactive_jobs
    batch_jobs
+   job_dependencies
 
 Job Environment
 ===============
