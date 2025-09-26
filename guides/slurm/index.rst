@@ -1,3 +1,5 @@
+.. _slurm_guide:
+
 Slurm Queueing System Guide
 ###########################
 

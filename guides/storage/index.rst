@@ -1,7 +1,10 @@
+Storage Guide
+#############
+
 .. _storage-on-compute-nodes:
 
 Understanding Storage on Compute Nodes
-######################################
+======================================
 
 When working on any compute node within the system, there are
 two primary types of storage available to users: ``scratch`` storage and ``home`` storage.
@@ -12,24 +15,24 @@ These are illustrated in the diagram below:
    :alt: Logical Storage Architecture
 
 Storage Types
-=============
+-------------
 
 ``scratch`` Storage
--------------------
+^^^^^^^^^^^^^^^^^^^
 - **Local to each compute node**: This means it is **not shared** across nodes.
 - **High performance**: Offers significantly faster read/write speeds compared to ``home`` storage.
 - **Limited capacity**: Typically smaller in size, so it's best suited for temporary files and high-speed I/O operations during job execution.
 - **Data retention policy:** ALL DATA IS REMOVED after a job finishes.
 
 ``home`` Storage
-----------------
+^^^^^^^^^^^^^^^^
 - **Shared across all nodes**: Accessible from any compute node in the system.
 - **Large capacity**: Designed to store a user's persistent data, such as source code, datasets, and results.
 - **Slower access**: Due to its shared nature, read/write operations are generally slower than ``scratch`` storage.
 - **Data retention policy:** Data is kept as this storage space is designed to hold persistent data.
 
 Recommended Workflow
-####################
+====================
 
 A common and efficient workflow for running jobs on the system is:
 
@@ -49,7 +52,7 @@ this worflow.
 .. _storage_copy_data:
 
 Copying Data Between Home and Scratch
-=====================================
+-------------------------------------
 
 To efficiently transfer data between your shared ``home`` storage and node-local ``scratch`` storage, you can use ``pdsh``—a parallel remote shell client that executes commands across multiple nodes simultaneously.
 
@@ -62,7 +65,7 @@ The general template for the ``pdsh`` command includes three key components:
 Below are common usage patterns:
 
 Copy input data from home to scratch on all nodes
--------------------------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. code-block:: bash
 
@@ -80,7 +83,7 @@ command above would:
    :alt: Logical Storage Architecture
 
 Copy results from scratch to home
----------------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
 
 .. warning::
    When copying results back to ``home``, ensure unique filenames or directories to prevent nodes from overwriting each other's output.
@@ -122,7 +125,7 @@ If your application aggregates results on the submission node (e.g., via MPI red
 you can use a standard copy command instead of ``pdsh``.
 
 Batch Script Example
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 Here's how this workflow fits into a typical Slurm batch script:
 
