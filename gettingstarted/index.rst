@@ -20,13 +20,15 @@ HPC system overview
 About the cluster
 -----------------
 
-LARCC consists of 20 nodes that can be used for computation:
+LARCC consists of 20 nodes that can be used for computation. These nodes are distributed in two queues
+as indicated below:
 
 .. list-table:: LARCC hardware specs
-   :widths: 3 3 3 3 3 3 3 3 3 3 3 3
+   :widths: 3 3 3 3 3 3 3 3 3 3 3 3 3
    :header-rows: 1
 
-   * - Number of servers
+   * - Queue Name
+     - Number of servers
      - Processor
      - CPU core frequency
      - CPU sockets per node
@@ -38,7 +40,8 @@ LARCC consists of 20 nodes that can be used for computation:
      - GPU Memory
      - GPUs per node
      - Local storage per node
-   * - 10
+   * - compute
+     - 10
      - AMD EPYC 9554
      - 3.1 to 3.75 GHz
      - 2
@@ -50,7 +53,8 @@ LARCC consists of 20 nodes that can be used for computation:
      - N/A
      - 0
      - 14TB NVMe
-   * - 10
+   * - gpu
+     - 10
      - INTEL XEON GOLD 6542Y
      - 4.1 GHz
      - 2
