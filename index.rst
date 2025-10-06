@@ -12,15 +12,5 @@ LARCC User Documentation
    accounts_and_support/index
    gettingstarted/index
    guides/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Software
-
    software/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Use Cases
-
    usecases/index

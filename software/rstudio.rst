@@ -1,3 +1,8 @@
+.. _rstudio:
+
+RStudio
+#######
+
 Pre-launch
 ==========
 

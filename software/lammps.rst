@@ -1,5 +1,7 @@
-Using LAMMPS
-============
+.. _lammps:
+
+LAMMPS
+######
 
 The cluster provides the following versions of LAMMPS:
 
