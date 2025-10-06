@@ -1,5 +1,7 @@
-Using LIGGGHTS
-==============
+.. _liggghts:
+
+LIGGGHTS
+########
 
 The cluster provides the following versions of LIGGGHTS:
 

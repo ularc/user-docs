@@ -1,4 +1,4 @@
-HPC system usage
+HPC System Guide
 ################
 
 Introduction

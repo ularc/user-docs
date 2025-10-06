@@ -1,7 +1,7 @@
 .. _gaussian:
 
-Using Gaussian
-==============
+Gaussian
+########
 
 The cluster provides the following versions of Gaussian:
 

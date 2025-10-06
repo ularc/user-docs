@@ -1,5 +1,8 @@
+Accounts and Support
+####################
+
 Request an account
-###################
+==================
 
 Before requesting an account, please read :ref:`our usage agreement for the LARCC system <usage-agreemet>`.
 If you agree with the terms, then review the following instructions carefully. Keep in mind that
@@ -15,7 +18,7 @@ with a faculty-led research project**.
   :ref:`Accounts for non-UofL but affiliated individuals <sponsored-accounts>`.
 
 Accounts for UofL individuals
-=============================
+-----------------------------
 
 If you are a faculty member,
 you are considered the faculty lead/PI and should enter yourself in that role.
@@ -45,7 +48,7 @@ To request an HPC account:
 
 ..
   Accounts for non-UofL but affiliated individuals
-  ================================================
+  ------------------------------------------------
 ..
   You must obtain a ULINK account before proceeding with your HPC account request. 
   For additional details and access to the request form, 
@@ -68,7 +71,7 @@ To request an HPC account:
   log in to the Service Desk portal using your ULINK credentials.
 
 UofL VPN Connection
-###################
+===================
 
 As part of the HPC onboarding process, you are set up with a University supplied VPN account.
 
@@ -110,7 +113,7 @@ More information can be found on the `University's VPN information page <https:/
 .. _user_support_tickets:
 
 Request Support (Tickets)
-#########################
+=========================
 
 **When filling out Support Request forms, it is important to specify which cluster you are requesting support for**
 

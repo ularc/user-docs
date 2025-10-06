@@ -1,5 +1,8 @@
 .. _conda:
 
+Conda (Anaconda/Miniconda/Miniforge)
+####################################
+
 Basics
 ======
 

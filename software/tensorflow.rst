@@ -1,6 +1,7 @@
+.. _tensorflow:
 
-Using TensorFlow
-================
+Tensorflow
+##########
 
 To use TensorFlow on the cluster, start by reviewing the :ref:`Conda <conda>` installer and
 how to manage :ref:`Conda environments <conda_create_env>`.

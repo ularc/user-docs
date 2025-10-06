@@ -30,3 +30,10 @@ html_static_path = ['_static']
 html_css_files = [
     'custom.css',
 ]
+html_theme_options = {
+    # If you want to control whether navigation is collapsed by default
+    'collapse_navigation': False,
+
+    # If you want to include the homepage in the sidebar menu (useful for MkDocs, but can be relevant for Sphinx)
+    'include_homepage_in_sidebar': True,
+}

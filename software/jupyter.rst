@@ -1,5 +1,8 @@
 .. _jupyter:
 
+Jupyter
+#######
+
 .. warning::
     Users are encouraged to use Jupyter primarily for testing or prototyping code, 
     rather than for running large, resource-intensive workloads.

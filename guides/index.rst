@@ -1,5 +1,9 @@
+Guides
+######
+
 .. toctree::
    :maxdepth: 3
 
-   hpc_systems_guide.rst
-   slurm_guide.rst
+   system_guide/index.rst
+   slurm/index.rst
+   storage/index.rst

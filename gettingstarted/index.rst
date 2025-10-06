@@ -1,7 +1,10 @@
+Getting Started
+###############
+
 .. _usage-agreemet:
 
 Usage Agreement
-###############
+===============
 
 Access to and use of the LARCC/CARDS system is contingent upon you agreeing to acknowledge the system 
 (its supporting grants) in any publications and presentations resulting from work performed in whole
@@ -12,18 +15,20 @@ The PIs' request the following language:
 under grants OAC2430270 and OAC2322248, and the University of Louisville's Research Computing team."
 
 HPC system overview
-###################
+===================
 
 About the cluster
-=================
+-----------------
 
-LARCC consists of 20 nodes that can be used for computation:
+LARCC consists of 20 nodes that can be used for computation. These nodes are distributed in two queues
+as indicated below:
 
 .. list-table:: LARCC hardware specs
-   :widths: 3 3 3 3 3 3 3 3 3 3 3 3
+   :widths: 3 3 3 3 3 3 3 3 3 3 3 3 3
    :header-rows: 1
 
-   * - Number of servers
+   * - Queue Name
+     - Number of servers
      - Processor
      - CPU core frequency
      - CPU sockets per node
@@ -35,7 +40,8 @@ LARCC consists of 20 nodes that can be used for computation:
      - GPU Memory
      - GPUs per node
      - Local storage per node
-   * - 10
+   * - compute
+     - 10
      - AMD EPYC 9554
      - 3.1 to 3.75 GHz
      - 2
@@ -47,7 +53,8 @@ LARCC consists of 20 nodes that can be used for computation:
      - N/A
      - 0
      - 14TB NVMe
-   * - 10
+   * - gpu
+     - 10
      - INTEL XEON GOLD 6542Y
      - 4.1 GHz
      - 2
@@ -78,7 +85,7 @@ to users with active jobs running on them. For example, if user "lk01" submits a
 Slurm allocates ``larcc-cpu1`` for its execution, "lk01" will have exclusive access to log into ``larcc-cpu1``.
 
 About Scientific Software
-=========================
+-------------------------
 
 In Linux, program behavior is influenced by dynamic values called "environmental variables".
 These variables can be created, modified, and removed as needed, shaping the functionality
@@ -94,7 +101,7 @@ Users can explore available modules with the ``module available`` command and lo
 them using ``module load modulename``.
 
 About Jobs
-==========
+----------
 
 Users can submit two types of jobs: interactive and batch.
 Interactive jobs give direct access to the assigned node, allowing users to execute programs manually.
@@ -106,12 +113,12 @@ Running ``tmux`` before starting an interactive job creates
 a persistent session that continues even if the connection is lost.
 
 Quickstart
-##########
+==========
 
 .. _logging-into-cluster:
 
 Logging into the cluster
-========================
+------------------------
 
 Upon creating an account, users are provided with a username and password, 
 which they can utilize to access the cluster via SSH (Secure Shell Protocol).
@@ -175,7 +182,7 @@ Using MobaXterm
     :width: 800
 
 Copying files to/from the cluster
-=================================
+---------------------------------
 
 Using the command line
 ^^^^^^^^^^^^^^^^^^^^^^
@@ -228,7 +235,7 @@ Uploading files or folders to the cluster
    upload.
 
 Using software installed in the cluster
-=======================================
+---------------------------------------
 
 List available software
 ^^^^^^^^^^^^^^^^^^^^^^^
@@ -279,7 +286,7 @@ For such cases the program loaded last is used. An example of this is shown belo
 .. warning::
     Programs **MUST** only be run through slurm, **NOT** on the login node (larcc-login1).
     Users can test their scripts using an interactive job first and then submit the appropriate
-    batch job (See Section :ref:`slurm` for more details).
+    batch job (See our :ref:`Slurm Queueing System Guide <slurm_guide>` for more details).
 
 List currently loaded software
 ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
@@ -350,7 +357,7 @@ unload all modules, users should use the command ``module purge``. Example:
     [user@larcc-login1 ~]$
 
 Queues and jobs
-===============
+---------------
 
 - The cluster has two queues named *compute* and *gpu*.
 - To **see information about queues**, users can use the ``sinfo`` command.
@@ -364,10 +371,10 @@ Queues and jobs
 - To **cancel jobs**, users can use the ``scancel`` command as follows: ``scancel jobid``
 
 Policies
-########
+========
 
 Installing packages system-wide
-===============================
+-------------------------------
 
 The Research Computing team reviews software installation requests on a case-by-case basis
 to determine whether an application should be installed system-wide or is better suited for local installation
@@ -385,7 +392,7 @@ Due to the high volume of requests, we prioritize faster solutions like Conda an
 reserve global installations for cases where no suitable alternative exists.
 
 Running applications on the login nodes
-=======================================
+---------------------------------------
 
 Users should avoid running resource-intensive workloads on the login nodes,
 as this can degrade performance and hinder others from accessing the cluster or submitting jobs.
@@ -395,7 +402,7 @@ any user processes on the login nodes that are found to negatively impact other 
 .. _resource_restrictions:
 
 Resource restrictions
-=====================
+---------------------
 
 .. note::
 
@@ -406,7 +413,7 @@ Resource restrictions
   and we will be happy to evaluate your case.
 
 Job runtime restrictions
-------------------------
+^^^^^^^^^^^^^^^^^^^^^^^^
 
 - If the ``--time`` option is not specified when submitting a job,
   a default runtime of 12 hours is imposed on said job.
@@ -431,7 +438,7 @@ Job runtime restrictions
 - Users can submit a maximum of 20 jobs across all partitions.
 
 Storage restrictions
---------------------
+^^^^^^^^^^^^^^^^^^^^
 
 - ``home`` storage has a quota of 1TB per user.
 - If multiple users from a research lab require a shared space where they can all colaborate,

@@ -8,36 +8,9 @@ LARCC User Documentation
 
 .. toctree::
    :maxdepth: 3
-   :caption: Accounts and support
 
    accounts_and_support/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Getting Started
-
    gettingstarted/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Guides
-
    guides/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Storage
-
-   storage/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Software
-
    software/index
-
-.. toctree::
-   :maxdepth: 3
-   :caption: Use Cases
-
    usecases/index

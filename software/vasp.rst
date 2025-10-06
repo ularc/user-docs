@@ -1,3 +1,8 @@
+.. _vasp:
+
+VASP
+####
+
 License Restrictions
 ====================
 
