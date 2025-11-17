@@ -27,24 +27,40 @@ for the research project you will be working on.
 
 To request an HPC account:
 
-#. Navigate to the `University's Service Desk portal <https://service.louisville.edu/TDClient/277/Portal/Home/>`_ and
+#. Navigate to the `University's Service Desk portal <https://service.louisville.edu/TDClient/Home>`_ and
    log into the portal using your ULINK credentials.
 
-#. Click on the **IT Service Catalog** Tab, Then on the **Accounts and Security** option.
-
-    .. image:: images/ul_services_it_catalog_tab.png
+   .. image:: images/ul_services_home.png
       :width: 600
-      :alt: UL Services IT Catalog - Accounts and Security
+      :alt: UL Services - Home   
 
-#. Click on **Request an HPC Account** and fill out the form that will pop-up.
-   When filling out your request, be sure to indicate any additional systems (e.g., "bigdata")
-   to which you are requesting access along with LARCC. Include these details in the
-   **Please state the purpose for which the account is being requested** section,
-   along with any other required information.
+#. Scroll down to the **Featured Services** section and click on **Research Computing Support**, or
+   search for *Research Computing Support*.
 
-    .. image:: images/ul_services_accounts_request_hpc_account.png
+    .. image:: images/ul_featured_services.png
       :width: 600
-      :alt: UL Services IT Catalog - Request an HPC Account
+      :alt: UL Services - Research Computing
+
+#. Under the **Services** section, click on **High-Performance Computing (HPC)**
+
+    .. image:: images/ul_research_computing_service_list.png
+      :width: 600
+      :alt: UL Services - Research Compuing Service List
+
+#. Click on the **Request Service** button.
+
+    .. image:: images/ul_research_computing_request_service.png
+      :width: 600
+      :alt: UL Services - Request an HPC Account
+
+#. Under the **Ticketing Details** section, locate the **Access Areas** drop-down menu and select
+   **Research Computing Account (Local HPC / Storage / Other Servers)**.
+
+    .. image:: images/ul_research_computing_form.png
+      :width: 600
+      :alt: UL Services - Research Computing Form
+
+#. Fill out the rest of the form as appropriate.
 
 ..
   Accounts for non-UofL but affiliated individuals
