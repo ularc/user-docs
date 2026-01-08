@@ -221,6 +221,9 @@ Here are some useful conda commands users are encouraged to get familiar with:
      - Update a package
    * - ``conda search PACKAGE``
      - Search for package
+   * - ``conda config --add channels CHANNEL``
+     - Add a channel to your environment. This is especially helpful for those using bioconda 
+       (``conda config --add channels bioconda``)
 
 As an example, a typical workflow for python looks like this:
 
